@@ -1,22 +1,31 @@
 import { message } from "antd";
 import * as React from "react";
 
-export interface IDataLoaderProps {
+export interface IDataLoaderProps<T> {
   url: string;
-  children: any;
+  children: (props: IDataProps<T>) => any;
 }
 
-interface IState {
+export interface IDataProps<T> {
+  data: T | null;
+  loading: boolean;
+  error?: string | null;
+}
+
+interface IState<T> {
   loadingState: string;
-  data: any;
+  data: T | null;
   error?: string | null;
   url: string;
 }
 
-export class DataLoader extends React.Component<IDataLoaderProps, IState> {
+export class DataLoader<T> extends React.Component<
+  IDataLoaderProps<T>,
+  IState<T>
+> {
   public static getDerivedStateFromProps(
-    props: IDataLoaderProps,
-    state: IState
+    props: IDataLoaderProps<any>,
+    state: IState<any>
   ) {
     // tslint:disable-next-line:no-console
     console.log("next url", props.url);
@@ -25,8 +34,8 @@ export class DataLoader extends React.Component<IDataLoaderProps, IState> {
     }
     return state;
   }
-  public state: IState = {
-    data: null,
+  public state: IState<T> = {
+    data: {} as T,
     loadingState: "INVALID",
     url: ""
   };
@@ -36,8 +45,6 @@ export class DataLoader extends React.Component<IDataLoaderProps, IState> {
 
   public async componentDidUpdate() {
     if (this.state.loadingState === "INVALID") {
-      // tslint:disable-next-line:no-console
-      console.log("reload");
       this.reload();
     }
   }

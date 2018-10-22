@@ -91,7 +91,7 @@ export class ReferenceEditor extends React.Component<IProps> {
                 }}
                 notFoundContent={null}
               >
-                {data
+                {data && data.value
                   ? data.value.map((i: any) => {
                       return <Select.Option key={i.id}>{i.name}</Select.Option>;
                     })

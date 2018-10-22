@@ -3,6 +3,7 @@ import * as React from "react";
 import { Button, message } from "antd";
 
 import { FormikActions, FormikValues } from "formik";
+import { actionItemMargin } from "./Layout";
 
 export const createPatchSubmitHandler = (url: string) => async (
   values: FormikValues,
@@ -35,7 +36,7 @@ export const PatchAction = (props: {
   onClick: (e?: any | undefined) => void;
   loading: boolean;
 }) => (
-  <Button style={{ margin: "3px" }} {...props}>
+  <Button style={{ margin: actionItemMargin }} {...props}>
     Save
   </Button>
 );
@@ -47,7 +48,7 @@ export class DeleteAction extends React.Component<{ url: string }> {
     return (
       <Button
         loading={loading}
-        style={{ marginLeft: "3px" }}
+        style={{ margin: actionItemMargin }}
         type="danger"
         // tslint:disable-next-line:jsx-no-lambda
         onClick={async () => {
@@ -100,4 +101,8 @@ export const postJson = async (url: string, payload: any) =>
     method: "POST"
   });
 
-export const PostAction = (props: any) => <Button {...props}>Create</Button>;
+export const PostAction = (props: any) => (
+  <Button style={{ margin: actionItemMargin }} {...props}>
+    Create
+  </Button>
+);

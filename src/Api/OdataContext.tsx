@@ -7,6 +7,12 @@ export interface IQueryParameter {
   value: string;
 }
 
+export interface IOdataCollectionResponse {
+  value: any;
+  ["@odata.context"]: string;
+  ["@odata.count"]?: number;
+}
+
 export interface IOdataCollectionContext {
   key: any;
   setTop: (top: number) => void;

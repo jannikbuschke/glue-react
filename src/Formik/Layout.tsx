@@ -8,6 +8,8 @@ export const PageContentContainer = (props: any) => (
   <div style={{}} {...props} />
 );
 
+export const actionItemMargin = 5;
+
 export const PageActionContainer = (props: any) => (
   <div
     style={{

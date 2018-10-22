@@ -1,5 +1,5 @@
 export * from "./Notification";
-export * from "./Pages/index";
+export * from "./Pages";
 export * from "./Pages/types";
 export * from "./Formik/index";
 export * from "./Api/index";
