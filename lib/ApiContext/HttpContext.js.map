@@ -1,1 +1,0 @@
-{"version":3,"file":"HttpContext.js","sourceRoot":"","sources":["../../src/ApiContext/HttpContext.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAC;AAO/B,MAAM,CAAC,IAAM,aAAa,GAAG,UAAC,MAAc,EAAE,eAAwB;IACpE,OAAO,KAAK,CAAC,aAAa,CAAe,EAAE,MAAM,QAAA,EAAE,eAAe,iBAAA,EAAE,CAAC,CAAC;AACxE,CAAC,CAAC"}
