@@ -18,7 +18,9 @@ export interface IOdataCollectionContext {
     top: number;
 }
 export interface IProps {
-    children: (ctx: IOdataCollectionContext) => React.ReactNode;
+    expand?: string;
+    children?: (ctx: IOdataCollectionContext) => React.ReactNode;
+    render?: (ctx: IOdataCollectionContext) => React.ReactNode;
 }
 interface IState {
     skip: number;

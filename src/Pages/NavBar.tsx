@@ -17,19 +17,18 @@ interface IOwnProps {
 class NavBarComponent extends React.Component<IDispatchProps> {
   public render() {
     return (
-      <div>
-        <Menu
-          mode="inline"
-          // tslint:disable-next-line:jsx-no-lambda
-          onClick={(param: ClickParam) => {
-            this.props.dispatch(push(param.key));
-          }}
-        >
-          {this.props.items.map(item => {
-            return <Menu.Item key={item.path}>{item.displayName}</Menu.Item>;
-          })}
-        </Menu>
-      </div>
+      <Menu
+        style={{ height: "100%" }}
+        mode="inline"
+        // tslint:disable-next-line:jsx-no-lambda
+        onClick={(param: ClickParam) => {
+          this.props.dispatch(push(param.key));
+        }}
+      >
+        {this.props.items.map(item => {
+          return <Menu.Item key={item.path}>{item.displayName}</Menu.Item>;
+        })}
+      </Menu>
     );
   }
 }

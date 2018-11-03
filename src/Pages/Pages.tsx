@@ -7,7 +7,8 @@ const MasterDetailContainer = (props: any) => (
     style={{
       display: "grid",
       gridGap: "20px",
-      gridTemplateColumns: "repeat(2, 1fr)"
+      gridTemplateColumns: "repeat(2, 1fr)",
+      margin: "30px"
     }}
   >
     {props.children}
@@ -19,9 +20,9 @@ interface IProps {
 }
 
 const Pages = (props: IProps) => (
-  <React.Fragment>
+  <MasterDetailContainer>
     {props.items.map((item: IEntityItem, index) => (
-      <MasterDetailContainer key={index}>
+      <React.Fragment>
         <Route path={`${item.path}`} component={item.list} />
         <Switch>
           <Route exact={true} path={`${item.path}/new`} component={item.new} />
@@ -31,9 +32,9 @@ const Pages = (props: IProps) => (
             component={item.detail}
           />
         </Switch>
-      </MasterDetailContainer>
+      </React.Fragment>
     ))}
-  </React.Fragment>
+  </MasterDetailContainer>
 );
 
 export { Pages };

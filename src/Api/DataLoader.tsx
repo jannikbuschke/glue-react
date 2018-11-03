@@ -4,6 +4,7 @@ import * as React from "react";
 export interface IDataLoaderProps<T> {
   url: string;
   children: (props: IDataProps<T>) => any;
+  renderLoading?: () => any;
 }
 
 export interface IDataProps<T> {
@@ -27,8 +28,6 @@ export class DataLoader<T> extends React.Component<
     props: IDataLoaderProps<any>,
     state: IState<any>
   ) {
-    // tslint:disable-next-line:no-console
-    console.log("next url", props.url);
     if (state.url !== props.url) {
       return { url: props.url, loadingState: "INVALID" };
     }
@@ -67,7 +66,11 @@ export class DataLoader<T> extends React.Component<
   };
   public render() {
     const { data, error, loadingState } = this.state;
+    const { renderLoading } = this.props;
     const loading = loadingState === "INVALID" || loadingState === "LOADING";
+    if (renderLoading && loading) {
+      return renderLoading();
+    }
     return this.props.children({ data, loading, error });
   }
 }

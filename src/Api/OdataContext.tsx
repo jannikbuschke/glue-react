@@ -24,7 +24,9 @@ export interface IOdataCollectionContext {
 }
 
 export interface IProps {
-  children: (ctx: IOdataCollectionContext) => React.ReactNode;
+  expand?: string;
+  children?: (ctx: IOdataCollectionContext) => React.ReactNode;
+  render?: (ctx: IOdataCollectionContext) => React.ReactNode;
 }
 
 interface IState {
@@ -42,10 +44,9 @@ export class OdataContext extends React.Component<IProps, IState> {
     const params = Object.keys(queryParameters)
       .map(key => `&${key}=${queryParameters[key]}`)
       .join();
-    const allParams = `$count=true&$top=${top}&$skip=${skip}${params}`;
-    // tslint:disable-next-line:no-console
-    console.log("PARAMS", allParams);
-    return this.props.children({
+    const expand = this.props.expand ? `&$expand=${this.props.expand}` : "";
+    const allParams = `$count=true&$top=${top}&$skip=${skip}${params}${expand}`;
+    return this.props.render!({
       getQueryParameter: (key: string) => queryParameters[key],
       key: "" + Math.random(),
       params: allParams,

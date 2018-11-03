@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ErrorBoundary } from "../Formik";
 import { NavBar } from "./NavBar";
 import { Pages } from "./Pages";
 import { IEntityItem, ILinkItem } from "./types";
@@ -11,10 +12,12 @@ interface IProps {
 export class Root extends React.Component<IProps> {
   public render() {
     return (
-      <div style={{ display: "grid", gridTemplateColumns: "200px 1fr" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "180px 1fr" }}>
         <NavBar items={this.props.links} />
-        <div style={{ margin: 20 }}>
-          <Pages items={this.props.items} />
+        <div style={{}}>
+          <ErrorBoundary>
+            <Pages items={this.props.items} />
+          </ErrorBoundary>
         </div>
       </div>
     );

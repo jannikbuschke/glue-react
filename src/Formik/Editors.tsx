@@ -6,7 +6,7 @@ import { Field, FieldProps } from "formik";
 import { DataLoader } from "../Api";
 
 export const FormikDebug = () => (
-  <Field>{({ form }: any) => JSON.stringify(form, null, 4)}</Field>
+  <Field>{({ form }: any) => JSON.stringify(form, null, 2)}</Field>
 );
 
 export const DateEditor = (props: any) => (
@@ -51,8 +51,8 @@ export const Text = (props: any) => (
     {(p: FieldProps) => {
       return (
         <>
-          <label>{props.label}:</label>{" "}
-          {p.field.value ? p.field.value.toString() : ""}
+          <label>{props.label ? props.label : " "}:</label>{" "}
+          <span>{p.field.value ? p.field.value.toString() : " "}</span>
         </>
       );
     }}

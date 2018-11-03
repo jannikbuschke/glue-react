@@ -2,6 +2,7 @@ import * as React from "react";
 export interface IDataLoaderProps<T> {
     url: string;
     children: (props: IDataProps<T>) => any;
+    renderLoading?: () => any;
 }
 export interface IDataProps<T> {
     data: T | null;

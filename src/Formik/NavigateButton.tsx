@@ -2,7 +2,6 @@ import { Button } from "antd";
 import * as React from "react";
 import { connect } from "react-redux";
 import { routerActions } from "react-router-redux";
-import { actionItemMargin } from "./Layout";
 
 export interface INavigateButtonProps {
   type: "replace" | "push";
@@ -14,8 +13,7 @@ export const NavigateButton = connect(
   (dispatch, ownProps: any) => ({ dispatch, ...ownProps })
 )((props: any) => (
   <Button
-    style={{ margin: actionItemMargin }}
-    {...props}
+    // {...props}
     // tslint:disable-next-line:jsx-no-lambda
     onClick={() => {
       switch (props.type) {
