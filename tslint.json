@@ -10,6 +10,10 @@
   "rules": {
     "no-empty": false,
     "no-console": false,
-    "ordered-imports": false
+    "ordered-imports": false,
+    "jsx-no-lambda": false,
+    "no-empty-interface": false,
+    "no-unused-variable": false,
+    "object-literal-sort-keys": false
   }
 }

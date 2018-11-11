@@ -2,7 +2,7 @@ import { Select } from "antd";
 import { DatePicker, Input, InputNumber } from "antd";
 import * as React from "react";
 
-import { Field, FieldProps } from "formik";
+import { Field, FieldProps, FormikProps } from "formik";
 import { DataLoader } from "../Api";
 
 export const FormikDebug = () => (
@@ -25,7 +25,38 @@ export const DateEditor = (props: any) => (
 
 export const StringEditor = (props: any) => (
   <Field {...props}>
-    {({ field }: any) => <Input {...props} {...field} />}
+    {({ field, form }: { field: any; form: FormikProps<any> }) => {
+      const hasError = form.errors && form.errors[field.name];
+      return (
+        <div>
+          <Input
+            {...props}
+            {...field}
+            style={{ borderColor: hasError ? "red" : undefined }}
+          />
+        </div>
+      );
+    }}
+  </Field>
+);
+
+export const ValidationErrors = () => (
+  <Field>
+    {({ form }: { form: FormikProps<any> }) => {
+      const errorKeys = Object.keys(form.errors);
+      if (!errorKeys.length) {
+        return null;
+      }
+      return (
+        <div style={{ color: "red" }}>
+          <ul>
+            {errorKeys.map(
+              key => form.touched[key] && <li key={key}>{form.errors[key]}</li>
+            )}
+          </ul>
+        </div>
+      );
+    }}
   </Field>
 );
 

@@ -1,8 +1,10 @@
 import * as React from "react";
 
-import { Button, message } from "antd";
+import { Button, message, Popconfirm } from "antd";
 
 import { FormikActions, FormikValues } from "formik";
+import { Dispatch } from "redux";
+import { routerActions } from "react-router-redux";
 
 export const createPatchSubmitHandler = (url: string) => async (
   values: FormikValues,
@@ -41,46 +43,40 @@ export class DeleteAction extends React.Component<{ url: string }> {
   public render() {
     const { loading } = this.state;
     return (
-      <Button
-        loading={loading}
-        type="danger"
-        // tslint:disable-next-line:jsx-no-lambda
-        onClick={async () => {
+      <Popconfirm
+        title="Are you sure you want to delete this item?"
+        onConfirm={async () => {
           this.setState({ loading: true });
-          try {
-            const response = await fetch(this.props.url, { method: "DELETE" });
-            if (response.ok) {
-              this.setState({ loading: false });
-              message.success("Success");
-              // navigate back
-            } else {
-              message.error(response.statusText);
-            }
-          } catch (E) {
-            // tslint:disable-next-line:no-console
-            console.log("error", E);
-            message.error(E.toString());
+          const response = await fetch(this.props.url, { method: "DELETE" });
+          if (response.ok) {
+            this.setState({ loading: false });
+            message.success("Success");
+            // navigate back
+          } else {
+            message.error(response.statusText);
           }
         }}
       >
-        Delete
-      </Button>
+        <Button loading={loading} type="danger">
+          Delete
+        </Button>
+      </Popconfirm>
     );
   }
 }
 
-export const createPostSubmitHandler = (url: string) => async (
-  values: FormikValues,
-  actions: FormikActions<any>
-) => {
+export const createPostSubmitHandler = (
+  url: string,
+  dispatch?: Dispatch<any>
+) => async (values: FormikValues, actions: FormikActions<any>) => {
   try {
     const response = await postJson(url, values);
     message.success("Success");
-    // const payload =
-    await response.json();
-    //   p.dispatch(routerActions.replace(payload.id));
+    const payload = await response.json();
+    if (dispatch) {
+      dispatch(routerActions.replace(payload.id));
+    }
   } catch (E) {
-    // tslint:disable-next-line:no-console
     console.log("error", E);
     message.error(E.toString());
   } finally {

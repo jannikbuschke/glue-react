@@ -10,8 +10,8 @@ export interface INavigateButtonProps {
 
 export const NavigateButton = connect(
   state => ({}),
-  (dispatch, ownProps: any) => ({ dispatch, ...ownProps })
-)((props: any) => (
+  (dispatch: any, ownProps: any) => ({ dispatch, ...ownProps })
+)((props: INavigateButtonProps & { dispatch: any }) => (
   <Button
     // {...props}
     // tslint:disable-next-line:jsx-no-lambda

@@ -1,12 +1,14 @@
 exports.handleNotificationsAsync = require("./lib/Notification").handleNotificationsAsync;
 exports.Notification = require("./lib/Notification").Notification;
 exports.Root = require("./lib/Pages/index").Root;
+exports.DetailView = require("./lib/Pages/index").DetailView;
 exports.FormikDebug = require("./lib/Formik/Editors").FormikDebug;
 exports.DateEditor = require("./lib/Formik/Editors").DateEditor;
 exports.NumberEditor = require("./lib/Formik/Editors").NumberEditor;
 exports.StringEditor = require("./lib/Formik/Editors").StringEditor;
 exports.ReferenceEditor = require("./lib/Formik/Editors").ReferenceEditor;
 exports.Text = require("./lib/Formik/Editors").Text;
+exports.ValidationErrors = require("./lib/Formik/Editors").ValidationErrors;
 exports.DeleteAction = require("./lib/Formik/Actions").DeleteAction;
 exports.patchJson = require("./lib/Formik/Actions").patchJson;
 exports.PatchAction = require("./lib/Formik/Actions").PatchAction;
