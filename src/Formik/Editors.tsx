@@ -1,5 +1,5 @@
 import { Select } from "antd";
-import { DatePicker, Input, InputNumber } from "antd";
+import { DatePicker, Input, InputNumber, Form } from "antd";
 import * as React from "react";
 
 import { Field, FieldProps, FormikProps } from "formik";
@@ -23,24 +23,45 @@ export const DateEditor = (props: any) => (
   </Field>
 );
 
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 5 }
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 12 }
+  }
+};
+
 export const StringEditor = (props: any) => (
   <Field {...props}>
     {({ field, form }: { field: any; form: FormikProps<any> }) => {
-      const hasError = form.errors && form.errors[field.name];
-      return (
-        <div>
-          <Input
-            {...props}
-            {...field}
-            style={{ borderColor: hasError ? "red" : undefined }}
-          />
-        </div>
-      );
+      const hasError = form.errors && form.errors[field.name.toLowerCase()];
+      if (hasError) {
+        return (
+          <Form.Item
+            label={props.label}
+            validateStatus="error"
+            hasFeedback={false}
+            help={form.errors[field.name.toLowerCase()]}
+          >
+            <Input {...props} {...field} />
+          </Form.Item>
+        );
+      }
+      return <Input {...props} {...field} />;
     }}
   </Field>
 );
 
-export const ValidationErrors = () => (
+interface IValidationErrorsProps {
+  showOnlyIfTouched?: boolean;
+}
+
+export const ValidationErrors = ({
+  showOnlyIfTouched = true
+}: IValidationErrorsProps) => (
   <Field>
     {({ form }: { form: FormikProps<any> }) => {
       const errorKeys = Object.keys(form.errors);
@@ -51,7 +72,10 @@ export const ValidationErrors = () => (
         <div style={{ color: "red" }}>
           <ul>
             {errorKeys.map(
-              key => form.touched[key] && <li key={key}>{form.errors[key]}</li>
+              key =>
+                (form.touched[key] || !showOnlyIfTouched) && (
+                  <li key={key}>{form.errors[key]}</li>
+                )
             )}
           </ul>
         </div>

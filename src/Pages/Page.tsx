@@ -23,6 +23,9 @@ interface IDetailViewProps {
   title?: string;
   initialValues: any;
   onSubmit: any;
+  validate?: any;
+  validateOnChange?: boolean;
+  validateOnBlur?: boolean;
   renderActions: (props: FormikProps<any>) => any;
   renderContent: (props: FormikProps<any>) => any;
 }
@@ -31,7 +34,10 @@ export const DetailView = (props: IDetailViewProps) => (
   <Page title={props.title}>
     <Formik
       initialValues={props.initialValues}
+      validate={props.validate}
       onSubmit={props.onSubmit}
+      validateOnBlur={props.validateOnBlur}
+      validateOnChange={props.validateOnChange}
       render={(formProps: FormikProps<any>) => (
         <PageContentContainer>
           <PageActionContainer>
