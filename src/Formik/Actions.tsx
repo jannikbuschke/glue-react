@@ -67,14 +67,27 @@ export class DeleteAction extends React.Component<{ url: string }> {
 
 export const createPostSubmitHandler = (
   url: string,
-  dispatch?: Dispatch<any>
+  dispatch?: Dispatch<any>,
+  onSuccess?: (result: any) => void
 ) => async (values: FormikValues, actions: FormikActions<any>) => {
   try {
     const response = await postJson(url, values);
-    message.success("Success");
-    const payload = await response.json();
-    if (dispatch) {
-      dispatch(routerActions.replace(payload.id));
+    if (response.ok) {
+      message.success("Success");
+      const payload = await response.json();
+      if (dispatch) {
+        dispatch(routerActions.replace(payload.id));
+      }
+      if (onSuccess) {
+        onSuccess(payload);
+      }
+    } else {
+      console.error(response);
+      message.error(response.statusText);
+      const text = await response.text();
+      if (text) {
+        message.error(text);
+      }
     }
   } catch (E) {
     console.log("error", E);
@@ -91,4 +104,6 @@ export const postJson = async (url: string, payload: any) =>
     method: "POST"
   });
 
-export const PostAction = (props: any) => <Button {...props}>Create</Button>;
+export const PostAction = (props: any) => (
+  <Button {...props}>{props.children || "Create"}</Button>
+);
