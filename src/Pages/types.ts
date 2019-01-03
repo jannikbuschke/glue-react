@@ -19,6 +19,14 @@ export interface IEntityItem {
     | React.ComponentType<RouteComponentProps<any>>
     | React.ComponentType<any>
     | any;
+  create?:
+    | React.ComponentType<RouteComponentProps<any>>
+    | React.ComponentType<any>
+    | any;
+  batchCreate?:
+    | React.ComponentType<RouteComponentProps<any>>
+    | React.ComponentType<any>
+    | any;
 }
 
 export interface ILinkItem {

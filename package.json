@@ -1,6 +1,6 @@
 {
   "name": "@jannikb/react-glue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "main": "main.js",
   "files": [
@@ -8,49 +8,37 @@
     "main.js"
   ],
   "types": "./lib/types.d.ts",
-  "dependencies": {},
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "rm ./lib/* && tsc",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "tsc": "tsc"
   },
-  "peerDependencies": {
-    "@aspnet/signalr": ">=1.0.4 < 2",
-    "react": ">= 16.5.2 < 17",
-    "react-dom": ">= 16.5.2 < 17",
-    "antd": ">= 3.9.3 < 4",
-    "react-redux": ">= 5.0.7 < 6",
-    "styled-components": ">= 3.4.9 < 4",
-    "react-router": ">= 4.3.1 < 5",
-    "react-router-dom": ">= 4.3.1 < 5",
-    "react-router-redux": ">= 5.0.0-alpha.9 < 6",
-    "redux": ">= 4.0.0 < 5",
-    "formik": ">= 1.3.1 < 2",
-    "lodash": ">= 4.17.11 < 5"
-  },
-  "devDependencies": {
+  "dependencies": {
     "@aspnet/signalr": "^1.0.4",
-    "@devexpress/dx-react-grid": "^1.9.0",
-    "@types/styled-components": "^4.0.3",
-    "@devexpress/dx-react-grid-bootstrap3": "^1.9.0",
-    "@types/jest": "^23.3.9",
-    "@types/lodash": "^4.14.118",
-    "@types/node": "^10.12.5",
-    "@types/react": "^16.7.2",
-    "@types/react-dom": "^16.0.9",
-    "@types/react-redux": "^5.0.21",
-    "@types/react-router": "^4.4.1",
+    "@devexpress/dx-react-core": "^1.9.1",
+    "@devexpress/dx-react-grid": "^1.9.1",
+    "@devexpress/dx-react-grid-bootstrap3": "^1.9.1",
+    "@reach/router": "^1.2.1",
+    "@types/reach__router": "^1.2.2",
+    "@types/react-redux": "^6.0.11",
+    "@types/react-router": "^4.4.3",
     "@types/react-router-dom": "^4.3.1",
-    "@types/react-router-redux": "^5.0.16",
-    "@types/redux": "^3.6.31",
-    "antd": "^3.10.5",
-    "formik": "^1.3.1",
+    "@types/react-router-redux": "^5.0.17",
+    "antd": "^3.11.5",
+    "formik": "^1.4.1",
     "lodash": "^4.17.11",
-    "react": "^16.6.1",
-    "react-dom": "^16.6.1",
-    "react-scripts-ts": "3.1.0",
-    "styled-components": "^4.0.3",
-    "typescript": "^3.1.6"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-redux": "^6.0.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^5.0.0-alpha.9",
+    "redux": "^4.0.0",
+    "styled-components": "^4.0.3"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "@types/jest": "^23.3.9",
+    "@types/lodash": "^4.14.119",
+    "@types/react-dom": "^16.0.11",
+    "typescript": "^3.2.2"
   }
 }

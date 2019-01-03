@@ -7,6 +7,7 @@
     "lib": ["es6", "dom"],
     "sourceMap": true,
     "jsx": "react",
+    "skipLibCheck": true,
     "moduleResolution": "node",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
@@ -16,7 +17,7 @@
     "importHelpers": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "declaration": true
   },
   "exclude": [
