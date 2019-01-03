@@ -29,4 +29,3 @@ exports.PageHeader = require("./lib/Formik/Layout").PageHeader;
 exports.NavigateButton = require("./lib/Formik/NavigateButton").NavigateButton;
 exports.DataLoader = require("./lib/Api").DataLoader;
 exports.OdataContext = require("./lib/Api").OdataContext;
-exports.OdataList = require("./lib/Lists").OdataList;

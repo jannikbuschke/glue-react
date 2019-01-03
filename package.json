@@ -1,7 +1,7 @@
 {
   "name": "@jannikb/react-glue",
   "version": "0.1.1",
-  "private": true,
+  "private": false,
   "main": "main.js",
   "files": [
     "lib",
@@ -13,15 +13,8 @@
   },
   "dependencies": {
     "@aspnet/signalr": "^1.0.4",
-    "@devexpress/dx-react-core": "^1.9.1",
-    "@devexpress/dx-react-grid": "^1.9.1",
-    "@devexpress/dx-react-grid-bootstrap3": "^1.9.1",
     "@reach/router": "^1.2.1",
     "@types/reach__router": "^1.2.2",
-    "@types/react-redux": "^6.0.11",
-    "@types/react-router": "^4.4.3",
-    "@types/react-router-dom": "^4.3.1",
-    "@types/react-router-redux": "^5.0.17",
     "antd": "^3.11.5",
     "formik": "^1.4.1",
     "lodash": "^4.17.11",
@@ -36,6 +29,10 @@
   },
   "peerDependencies": {},
   "devDependencies": {
+    "@types/react-redux": "^6.0.11",
+    "@types/react-router": "^4.4.3",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/react-router-redux": "^5.0.17",
     "@types/jest": "^23.3.9",
     "@types/lodash": "^4.14.119",
     "@types/react-dom": "^16.0.11",
