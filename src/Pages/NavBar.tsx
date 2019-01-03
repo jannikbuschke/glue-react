@@ -1,43 +1,25 @@
 import { Menu } from "antd";
-import { ClickParam } from "antd/lib/menu";
+// import { ClickParam } from "antd/lib/menu";
 import * as React from "react";
-import { connect } from "react-redux";
-import { push } from "react-router-redux";
 import { ILinkItem } from "./types";
+import { Link } from "@reach/router";
 
-// tslint:disable-next-line:no-empty-interface
-interface IDispatchProps {
-  items: ILinkItem[];
-  dispatch: any;
-}
 interface IOwnProps {
   items: ILinkItem[];
 }
 
-class NavBarComponent extends React.Component<IDispatchProps> {
+export class NavBar extends React.Component<IOwnProps> {
   public render() {
     return (
-      <Menu
-        style={{ height: "100%" }}
-        mode="inline"
-        // tslint:disable-next-line:jsx-no-lambda
-        onClick={(param: ClickParam) => {
-          this.props.dispatch(push(param.key));
-        }}
-      >
+      <Menu style={{ height: "100%" }} mode="inline">
         {this.props.items.map(item => {
-          return <Menu.Item key={item.path}>{item.displayName}</Menu.Item>;
+          return (
+            <Menu.Item key={item.path}>
+              <Link to={item.path}>{item.displayName}</Link>
+            </Menu.Item>
+          );
         })}
       </Menu>
     );
   }
 }
-
-const NavBar = connect(
-  (state, ownProps) => ({}),
-  (dispatch: any, ownProps: IOwnProps): IDispatchProps => ({
-    dispatch,
-    ...ownProps
-  })
-)(NavBarComponent);
-export { NavBar };

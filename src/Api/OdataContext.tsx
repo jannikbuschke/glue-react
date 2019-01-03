@@ -25,6 +25,7 @@ export interface IOdataCollectionContext {
 
 export interface IProps {
   expand?: string;
+  additionalParameters?: string[];
   children?: (ctx: IOdataCollectionContext) => React.ReactNode;
   render?: (ctx: IOdataCollectionContext) => React.ReactNode;
 }
@@ -41,11 +42,16 @@ export class OdataContext extends React.Component<IProps, IState> {
   public state: IState = { skip: 0, top: defaultPageSize, queryParameters: {} };
   public render() {
     const { top, skip, queryParameters } = this.state;
+    const { additionalParameters } = this.props;
     const params = Object.keys(queryParameters)
       .map(key => `&${key}=${queryParameters[key]}`)
       .join();
+    const other = additionalParameters
+      ? "&" + additionalParameters.join("&")
+      : "";
+    console.log("other params", other);
     const expand = this.props.expand ? `&$expand=${this.props.expand}` : "";
-    const allParams = `$count=true&$top=${top}&$skip=${skip}${params}${expand}`;
+    const allParams = `$count=true&$top=${top}&$skip=${skip}${params}${expand}${other}`;
     return this.props.render!({
       getQueryParameter: (key: string) => queryParameters[key],
       key: "" + Math.random(),

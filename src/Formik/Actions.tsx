@@ -36,7 +36,42 @@ export const patchJson = async (url: string, payload: any) =>
 export const PatchAction = (props: {
   onClick: (e?: any | undefined) => void;
   loading: boolean;
-}) => <Button {...props}>Save</Button>;
+}) => (
+  <Button htmlType="submit" {...props}>
+    Save
+  </Button>
+);
+
+class Delete extends React.Component<{ path: string; id: string }> {
+  public render() {
+    return (
+      <Popconfirm
+        title="Are you sure?"
+        onConfirm={async () => {
+          const response = await fetch(this.props.path, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ id: this.props.id })
+          });
+          if (response.ok) {
+            this.setState({ loading: false });
+            message.success("Success");
+            window.history.back();
+            // navigate("..", { replace: true });
+          } else {
+            message.error(response.statusText);
+          }
+        }}
+      >
+        <Button type="danger">Delete</Button>
+      </Popconfirm>
+    );
+  }
+}
+
+export const Action = {
+  Delete: Delete
+};
 
 export class DeleteAction extends React.Component<{ url: string }> {
   public state = { loading: false };
@@ -57,7 +92,7 @@ export class DeleteAction extends React.Component<{ url: string }> {
           }
         }}
       >
-        <Button loading={loading} type="danger">
+        <Button htmlType="submit" loading={loading} type="danger">
           Delete
         </Button>
       </Popconfirm>
@@ -65,13 +100,16 @@ export class DeleteAction extends React.Component<{ url: string }> {
   }
 }
 
+interface PostSubmitOptions {}
+
 export const createPostSubmitHandler = (
   url: string,
   dispatch?: Dispatch<any>,
-  onSuccess?: (result: any) => void
+  onSuccess?: (result: any) => void,
+  transform: (values: any) => any = values => values
 ) => async (values: FormikValues, actions: FormikActions<any>) => {
   try {
-    const response = await postJson(url, values);
+    const response = await postJson(url, transform(values));
     if (response.ok) {
       message.success("Success");
       const payload = await response.json();

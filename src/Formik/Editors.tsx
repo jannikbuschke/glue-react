@@ -8,7 +8,7 @@ import { TextAreaProps } from "antd/lib/input";
 import { FormItemProps } from "antd/lib/form";
 
 export const FormikDebug = () => (
-  <Field>{({ form }: any) => JSON.stringify(form, null, 2)}</Field>
+  <Field>{({ form }: any) => <pre>{JSON.stringify(form, null, 2)}</pre>}</Field>
 );
 
 export const DateEditor = (props: any) => (
@@ -142,6 +142,7 @@ export const StringArrayEditor = (props: any) => (
                       -
                     </Button>
                     <Button
+                      htmlType="submit"
                       onClick={() => arrayHelpers.insert(index, "")} // insert an empty string at a position
                     >
                       +
@@ -149,12 +150,13 @@ export const StringArrayEditor = (props: any) => (
                   </div>
                 ))
               ) : (
-                <Button onClick={() => arrayHelpers.push("")}>
+                <Button htmlType="submit" onClick={() => arrayHelpers.push("")}>
                   {/* show this when user has removed all friends from the list */}
                   Add
                 </Button>
               )}
               <Button
+                htmlType="submit"
                 onClick={() => arrayHelpers.push("")} // insert an empty string at a position
               >
                 +
@@ -260,7 +262,11 @@ export class ReferenceEditor extends React.Component<IProps> {
               >
                 {data && data.value
                   ? data.value.map((i: any) => {
-                      return <Select.Option key={i.id}>{i.name}</Select.Option>;
+                      return (
+                        <Select.Option key={i.id}>
+                          {i.name || i.displayName || i.title}
+                        </Select.Option>
+                      );
                     })
                   : null}
               </Select>

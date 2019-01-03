@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import { NavLink } from "react-router-dom";
-
 import {
   CustomPaging,
   DataTypeProvider,
@@ -21,6 +19,7 @@ import {
 
 import { DataLoader, IDataProps } from "../Api";
 import { OdataContext, IOdataCollectionResponse } from "../Api/OdataContext";
+import { Link } from "@reach/router";
 
 interface IColumn {
   name: string;
@@ -33,6 +32,7 @@ export interface IOdataListProps {
   links: string[];
   // totalCount?: number;
   // items: any[];
+  additionalParameters?: string[];
   path: string;
   odataPath: string;
   expand?: string;
@@ -50,6 +50,7 @@ export class OdataList extends React.Component<IOdataListProps, any> {
       <div style={{ paddingLeft: "3px" }}>
         <OdataContext
           expand={this.props.expand}
+          additionalParameters={this.props.additionalParameters}
           render={ctx => (
             <DataLoader url={`${this.props.odataPath}?${ctx.params}`}>
               {({ data }: IDataProps<IOdataCollectionResponse>) => (
@@ -70,8 +71,6 @@ export class OdataList extends React.Component<IOdataListProps, any> {
                     currentPage={page}
                     // tslint:disable-next-line:jsx-no-lambda
                     onCurrentPageChange={(currentPage: number) => {
-                      // tslint:disable-next-line:no-console
-                      console.log("change pagesize", pageSize, currentPage);
                       this.setState({ page: currentPage });
                       ctx.setSkip(pageSize * currentPage);
                       ctx.setTop(pageSize);
@@ -112,9 +111,7 @@ export class OdataList extends React.Component<IOdataListProps, any> {
   private linkFormatter = (value: any) => {
     const { path } = this.props;
     return (
-      <NavLink to={`${path}/${value.row.id}`}>
-        {value.row[value.column.name]}
-      </NavLink>
+      <Link to={`${path}/${value.row.id}`}>{value.row[value.column.name]}</Link>
     );
   };
 }
