@@ -1,6 +1,6 @@
 {
   "name": "@jannikb/react-glue",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": false,
   "main": "main.js",
   "files": [
@@ -15,8 +15,14 @@
     "@aspnet/signalr": "^1.0.4"
   },
   "peerDependencies": {
-    "react": ">=16.7.0-alpha.2<17",
-    "react-dom": ">=16.7.0-alpha.2<17"
+    "react": ">= 16.7.0-alpha.2 < 17",
+    "react-dom": ">= 16.7.0-alpha.2 < 17",
+    "@reach/router": ">= 1.2.1 < 2",
+    "@types/reach__router": ">= 1.2.2 < 2",
+    "antd": ">= 3.11.5 < 4",
+    "formik": ">= 1.4.1 < 2",
+    "lodash": ">= 4.17.11 < 5",
+    "styled-components": ">= 4.0.3 < 5"
   },
   "devDependencies": {
     "@reach/router": "^1.2.1",
