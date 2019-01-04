@@ -3,8 +3,6 @@ import * as React from "react";
 import { Button, message, Popconfirm } from "antd";
 
 import { FormikActions, FormikValues } from "formik";
-import { Dispatch } from "redux";
-import { routerActions } from "react-router-redux";
 
 export const createPatchSubmitHandler = (url: string) => async (
   values: FormikValues,
@@ -104,7 +102,6 @@ interface PostSubmitOptions {}
 
 export const createPostSubmitHandler = (
   url: string,
-  dispatch?: Dispatch<any>,
   onSuccess?: (result: any) => void,
   transform: (values: any) => any = values => values
 ) => async (values: FormikValues, actions: FormikActions<any>) => {
@@ -113,9 +110,6 @@ export const createPostSubmitHandler = (
     if (response.ok) {
       message.success("Success");
       const payload = await response.json();
-      if (dispatch) {
-        dispatch(routerActions.replace(payload.id));
-      }
       if (onSuccess) {
         onSuccess(payload);
       }
