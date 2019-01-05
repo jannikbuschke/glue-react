@@ -13,7 +13,7 @@ const StyledActionContainer = styled.div`
   // margin: 20px;
   // padding: 20px;
   & > * {
-    margin: 10px;
+    margin: 5px;
   }
 `;
 

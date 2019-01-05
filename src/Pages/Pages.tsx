@@ -8,8 +8,7 @@ const MasterDetailContainer = (props: any) => (
     style={{
       display: "grid",
       gridGap: "20px",
-      gridTemplateColumns: "repeat(2, 1fr)",
-      margin: "30px"
+      gridTemplateColumns: "repeat(2, 1fr)"
     }}
   >
     {props.children}

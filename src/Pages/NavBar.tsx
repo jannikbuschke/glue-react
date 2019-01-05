@@ -1,17 +1,18 @@
 import { Menu } from "antd";
-// import { ClickParam } from "antd/lib/menu";
 import * as React from "react";
 import { ILinkItem } from "./types";
 import { Link } from "@reach/router";
+import { MenuProps } from "antd/lib/menu";
 
-interface IOwnProps {
+interface IProps {
   items: ILinkItem[];
+  menuProps?: MenuProps;
 }
 
-export class NavBar extends React.Component<IOwnProps> {
+export class NavBar extends React.Component<IProps> {
   public render() {
     return (
-      <Menu style={{ height: "100%" }} mode="inline">
+      <Menu mode="inline" {...this.props.menuProps}>
         {this.props.items.map(item => {
           return (
             <Menu.Item key={item.path}>

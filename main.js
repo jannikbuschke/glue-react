@@ -22,6 +22,7 @@ exports.Action = require("./lib/Formik/Actions").Action;
 exports.PostAction = require("./lib/Formik/Actions").PostAction;
 exports.postJson = require("./lib/Formik/Actions").postJson;
 exports.createPostSubmitHandler = require("./lib/Formik/Actions").createPostSubmitHandler;
+exports.Pages = require("./lib/Pages/Pages").Pages;
 exports.PageContainer = require("./lib/Formik/Layout").PageContainer;
 exports.PageActionContainer = require("./lib/Formik/Layout").PageActionContainer;
 exports.PageContentContainer = require("./lib/Formik/Layout").PageContentContainer;
