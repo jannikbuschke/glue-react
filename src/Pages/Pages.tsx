@@ -23,10 +23,10 @@ const Pages = (props: IProps) => (
   <MasterDetailContainer>
     {props.items.map((item: IEntityItem, index) => (
       <React.Fragment key={index}>
-        <Router>
+        <Router primary={false}>
           <item.list path={`${item.path}/*`} />
         </Router>
-        <Router>
+        <Router primary={false}>
           <item.new path={`${item.path}/new`} />
           {item.create && <item.create path={`${item.path}/create`} />}
           {item.batchCreate && (
