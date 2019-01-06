@@ -2,7 +2,6 @@ exports.handleNotificationsAsync = require("./lib/Notification").handleNotificat
 exports.Notification = require("./lib/Notification").Notification;
 exports.Root = require("./lib/Pages/index").Root;
 exports.DetailView = require("./lib/Pages/index").DetailView;
-exports.FormikDebug = require("./lib/Formik/Editors").FormikDebug;
 exports.DateEditor = require("./lib/Formik/Editors").DateEditor;
 exports.NumberEditor = require("./lib/Formik/Editors").NumberEditor;
 exports.BooleanEditor = require("./lib/Formik/Editors").BooleanEditor;

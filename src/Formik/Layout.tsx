@@ -10,10 +10,10 @@ export const PageContentContainer = (props: any) => (
 
 const StyledActionContainer = styled.div`
   display: flex;
-  // margin: 20px;
+  margin-bottom: 24px;
   // padding: 20px;
   & > * {
-    margin: 5px;
+    margin: 1px;
   }
 `;
 

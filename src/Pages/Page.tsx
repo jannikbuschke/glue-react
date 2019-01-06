@@ -14,7 +14,7 @@ interface IPageProps {
 
 export const Page = (props: IPageProps) => (
   <PageContainer>
-    <PageHeader>{props.title}</PageHeader>
+    {props.title && <PageHeader>{props.title}</PageHeader>}
     {props.children}
   </PageContainer>
 );

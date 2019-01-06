@@ -7,10 +7,6 @@ import { DataLoader } from "../Api";
 import { TextAreaProps } from "antd/lib/input";
 import { FormItemProps } from "antd/lib/form";
 
-export const FormikDebug = () => (
-  <Field>{({ form }: any) => <pre>{JSON.stringify(form, null, 2)}</pre>}</Field>
-);
-
 export const DateEditor = (props: any) => (
   <Field {...props}>
     {(p: FieldProps) => (
