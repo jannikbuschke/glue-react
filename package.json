@@ -1,6 +1,6 @@
 {
-  "name": "@jannikb/react-glue",
-  "version": "0.3.0",
+  "name": "@jbuschke/react-glue",
+  "version": "0.4.0",
   "private": false,
   "main": "main.js",
   "files": [
