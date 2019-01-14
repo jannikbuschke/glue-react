@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Button, message, Popconfirm } from "antd";
+import { Button, message, Popconfirm, notification } from "antd";
 
 import { FormikActions, FormikValues } from "formik";
 
@@ -98,8 +98,6 @@ export class DeleteAction extends React.Component<{ url: string }> {
   }
 }
 
-interface PostSubmitOptions {}
-
 export const createPostSubmitHandler = (
   url: string,
   onSuccess?: (result: any) => void,
@@ -118,7 +116,15 @@ export const createPostSubmitHandler = (
       message.error(response.statusText);
       const text = await response.text();
       if (text) {
-        message.error(text);
+        notification.error({
+          message: (
+            <div>
+              <div>{response.statusText}</div>
+              <div>{text}</div>
+            </div>
+          ),
+          duration: 0
+        });
       }
     }
   } catch (E) {

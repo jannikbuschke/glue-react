@@ -18,7 +18,8 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false,
-    "declaration": true
+    "declaration": true,
+    "declarationMap": true
   },
   "exclude": [
     "lib",

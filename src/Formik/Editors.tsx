@@ -7,6 +7,8 @@ import { DataLoader } from "../Api";
 import { TextAreaProps } from "antd/lib/input";
 import { FormItemProps } from "antd/lib/form";
 
+import { debounce } from "lodash";
+
 export const DateEditor = (props: any) => (
   <Field {...props}>
     {(p: FieldProps) => (
@@ -230,13 +232,22 @@ interface IProps {
   placeholder?: string;
 }
 
-export class ReferenceEditor extends React.Component<IProps> {
+interface State {
+  search: string;
+}
+export class ReferenceEditor extends React.Component<IProps, State> {
+  public state: State = { search: "" };
+
+  handleSearch = (search: string) => {
+    this.setState({ search });
+  };
+  debouncedSearch = debounce(this.handleSearch, 500);
   public render() {
     return (
-      <DataLoader url={this.props.url}>
-        {({ data }: any) => (
-          <Field name={this.props.name}>
-            {(fieldProps: FieldProps<any>) => (
+      <Field name={this.props.name}>
+        {(fieldProps: FieldProps<any>) => (
+          <DataLoader url={`${this.props.url}&search=${this.state.search}`}>
+            {({ data }: any) => (
               <Select
                 showSearch={true}
                 style={{ width: "100%" }}
@@ -245,6 +256,7 @@ export class ReferenceEditor extends React.Component<IProps> {
                     ? undefined
                     : fieldProps.field.value
                 }
+                onSearch={this.debouncedSearch}
                 allowClear={true}
                 placeholder={this.props.placeholder}
                 defaultActiveFirstOption={false}
@@ -267,9 +279,9 @@ export class ReferenceEditor extends React.Component<IProps> {
                   : null}
               </Select>
             )}
-          </Field>
+          </DataLoader>
         )}
-      </DataLoader>
+      </Field>
     );
   }
 }
