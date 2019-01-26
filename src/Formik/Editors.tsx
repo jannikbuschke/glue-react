@@ -235,6 +235,7 @@ interface IProps {
 interface State {
   search: string;
 }
+
 export class ReferenceEditor extends React.Component<IProps, State> {
   public state: State = { search: "" };
 

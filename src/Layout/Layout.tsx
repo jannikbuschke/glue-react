@@ -18,25 +18,20 @@ interface Custom {
 
 type NavigationItem = NavigationLink | Custom;
 
-export const NavigationItems = ({ items }: { items: NavigationItem[] }) => (
-  <div>
-    {items.map(item => {
-      switch (item.kind) {
-        case "LINK":
-          return (
-            <Menu.Item key={item.to}>
-              <div>asd</div>
-              <Link to={item.to}>{item.displayName}</Link>
-            </Menu.Item>
-          );
-        case "CUSTOM":
-          return <div key={Math.random()}>asd</div>;
-        default:
-          return <div>null</div>;
-      }
-    })}
-  </div>
-);
+export const NavigationItems = ({ items }: { items: NavigationItem[] }) =>
+  items.map(item => {
+    switch (item.kind) {
+      case "LINK":
+        return (
+          <Menu.Item key={item.to}>
+            <div>asd</div>
+            <Link to={item.to}>{item.displayName}</Link>
+          </Menu.Item>
+        );
+      default:
+        return null;
+    }
+  });
 
 interface Props {
   header?: NavigationItem[];
@@ -57,7 +52,7 @@ export const FlatMenu = (props: { items: NavigationItem[] }) => (
         case "CUSTOM":
           return item.component;
         default:
-          return <div>null</div>;
+          return null;
       }
     })}
   </Menu>
