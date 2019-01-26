@@ -1,10 +1,10 @@
-import * as React from "react";
+// import * as React from "react";
 
-interface IHttpContext {
-  apiUrl: string;
-  httpContextPath?: string;
-}
+// interface IHttpContext {
+//   apiUrl: string;
+//   httpContextPath?: string;
+// }
 
-export const createContext = (apiUrl: string, httpContextPath?: string) => {
-  return React.createContext<IHttpContext>({ apiUrl, httpContextPath });
-};
+// export const createContext = (apiUrl: string, httpContextPath?: string) => {
+//   return React.createContext<IHttpContext>({ apiUrl, httpContextPath });
+// };
