@@ -6,6 +6,7 @@ import {
   PageActionContainer
 } from "../Formik/Layout";
 import { Formik, FormikProps } from "formik";
+import { Spin, Alert } from "antd";
 
 interface IPageProps {
   title?: string;
@@ -28,23 +29,47 @@ interface IDetailViewProps {
   validateOnBlur?: boolean;
   renderActions: (props: FormikProps<any>) => any;
   renderContent: (props: FormikProps<any>) => any;
+  loading?: boolean;
+  error?: string;
 }
 
-export const DetailView = (props: IDetailViewProps) => (
-  <Page title={props.title}>
+export const DetailView = ({
+  title,
+  initialValues,
+  onSubmit,
+  validate,
+  validateOnChange,
+  validateOnBlur,
+  renderActions,
+  renderContent,
+  loading,
+  error
+}: IDetailViewProps) => (
+  <Page title={title}>
     <Formik
-      initialValues={props.initialValues}
-      validate={props.validate}
-      onSubmit={props.onSubmit}
-      validateOnBlur={props.validateOnBlur}
-      validateOnChange={props.validateOnChange}
+      initialValues={initialValues}
+      validate={validate}
+      onSubmit={onSubmit}
+      validateOnBlur={validateOnBlur}
+      validateOnChange={validateOnChange}
       render={(formProps: FormikProps<any>) => (
-        <PageContentContainer>
-          <PageActionContainer>
-            {props.renderActions(formProps)}
-          </PageActionContainer>
-          {props.renderContent(formProps)}
-        </PageContentContainer>
+        <Spin spinning={loading} delay={150}>
+          {error ? (
+            <Alert
+              message="Error Text"
+              description="Error Description Error Description Error Description Error Description Error Description Error Description"
+              type="error"
+              closable
+            />
+          ) : (
+            <PageContentContainer>
+              <PageActionContainer>
+                {renderActions(formProps)}
+              </PageActionContainer>
+              {renderContent(formProps)}
+            </PageContentContainer>
+          )}
+        </Spin>
       )}
     />
   </Page>
