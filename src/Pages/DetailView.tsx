@@ -37,7 +37,7 @@ export const DetailView = ({
       validateOnBlur={validateOnBlur}
       validateOnChange={validateOnChange}
       render={(formProps: FormikProps<any>) => (
-        <Spin spinning={loading} delay={250}>
+        <Spin spinning={loading === true} delay={250}>
           {error ? (
             <Alert
               message="Error Text"
