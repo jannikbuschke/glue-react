@@ -1,5 +1,4 @@
 import * as React from "react";
-// import { Route, Switch } from "react-router";
 import { IEntityItem } from "./types";
 import { Router } from "@reach/router";
 
@@ -19,9 +18,9 @@ interface IProps {
   items: IEntityItem[];
 }
 
-const Pages = (props: IProps) => (
-  <MasterDetailContainer>
-    {props.items.map((item: IEntityItem, index) => (
+const Pages = (props: IProps) =>
+  props.items.map((item: IEntityItem, index) => (
+    <MasterDetailContainer>
       <React.Fragment key={index}>
         <Router primary={false}>
           <item.list path={`${item.path}/*`} />
@@ -35,8 +34,7 @@ const Pages = (props: IProps) => (
           <item.detail path={`${item.path}/:id`} />
         </Router>
       </React.Fragment>
-    ))}
-  </MasterDetailContainer>
-);
+    </MasterDetailContainer>
+  ));
 
 export { Pages };
