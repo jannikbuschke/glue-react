@@ -12,7 +12,7 @@ interface NavigationLink {
 }
 
 interface Custom {
-  component: React.ReactNode;
+  component: any;
   kind: "CUSTOM";
 }
 
@@ -35,9 +35,29 @@ export const NavigationItems = ({ items }: { items: NavigationItem[] }) =>
 
 interface Props {
   header?: NavigationItem[];
+  headerRight?: NavigationItem[];
+  center?: any;
   sideBarItems?: NavigationItem[];
   children: any;
 }
+
+export const RenderNavigationItem = (props: NavigationItem) => {
+  console.log("RENDER NAVIGATION PROPS", props);
+  switch (props.kind) {
+    case "LINK":
+      return (
+        <Menu.Item key={props.to}>
+          <Link to={props.to}>
+            {props.icon && <Icon type={props.icon} />} {props.displayName}
+          </Link>
+        </Menu.Item>
+      );
+    case "CUSTOM":
+      return <props.component {...props} />;
+    default:
+      return null;
+  }
+};
 
 export const FlatMenu = (props: { items: NavigationItem[] }) => (
   <Menu mode="inline" style={{ height: "100%", borderRight: 0 }}>
@@ -51,8 +71,9 @@ export const FlatMenu = (props: { items: NavigationItem[] }) => (
               </Link>
             </Menu.Item>
           );
-        case "CUSTOM":
-          return item.component;
+        case "CUSTOM": {
+          throw new Error("CUSTOM component no longer supported");
+        }
         default:
           return null;
       }
@@ -61,26 +82,38 @@ export const FlatMenu = (props: { items: NavigationItem[] }) => (
 );
 
 export const ApplicationLayout = ({
-  header,
+  header: headerLeft,
+  headerRight,
   sideBarItems,
-  children
+  children,
+  center
 }: Props) => (
   <Layout style={{ minHeight: "100vh" }}>
-    {header && (
-      <Header style={{ height: "auto" }}>
-        <Menu theme="dark" mode="horizontal">
-          {header.map((item: NavigationLink) => {
-            return (
-              <Menu.Item key={item.to}>
-                <Link to={item.to}>
-                  {item.icon && <Icon type={item.icon} />} {item.displayName}
-                </Link>
-              </Menu.Item>
-            );
-          })}
-        </Menu>
-      </Header>
-    )}
+    <Header
+      style={{
+        height: "auto",
+        display: "flex",
+        justifyContent: "space-between"
+      }}
+    >
+      <Menu theme="dark" mode="horizontal">
+        {headerLeft &&
+          headerLeft.map((item: NavigationLink) => (
+            <Menu.Item key={item.to}>
+              <Link to={item.to}>
+                {item.icon && <Icon type={item.icon} />} {item.displayName}
+              </Link>
+            </Menu.Item>
+          ))}
+      </Menu>
+      <Menu theme="dark" />
+      <Menu theme="dark" style={{ alignSelf: "center", justifySelf: "" }}>
+        {headerRight &&
+          headerRight.map((item, index) => (
+            <RenderNavigationItem key={index} {...item} />
+          ))}
+      </Menu>
+    </Header>
     <Layout>
       {sideBarItems && (
         <Sider

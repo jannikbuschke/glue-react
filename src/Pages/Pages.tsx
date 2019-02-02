@@ -55,20 +55,18 @@ interface IProps {
 const Pages = (props: IProps) => (
   <>
     {props.items.map((item: IEntityItem, index) => (
-      <MasterDetailContainer>
-        <React.Fragment key={index}>
-          <Router primary={false}>
-            <item.list path={`${item.path}/*`} />
-          </Router>
-          <Router primary={false}>
-            <item.new path={`${item.path}/new`} />
-            {item.create && <item.create path={`${item.path}/create`} />}
-            {item.batchCreate && (
-              <item.batchCreate path={`${item.path}/batch-create`} />
-            )}
-            <item.detail path={`${item.path}/:id`} />
-          </Router>
-        </React.Fragment>
+      <MasterDetailContainer key={index}>
+        <Router primary={false}>
+          <item.list path={`${item.path}/*`} />
+        </Router>
+        <Router primary={false}>
+          <item.new path={`${item.path}/new`} />
+          {item.create && <item.create path={`${item.path}/create`} />}
+          {item.batchCreate && (
+            <item.batchCreate path={`${item.path}/batch-create`} />
+          )}
+          <item.detail path={`${item.path}/:id`} />
+        </Router>
       </MasterDetailContainer>
     ))}
   </>
