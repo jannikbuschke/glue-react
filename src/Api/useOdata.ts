@@ -11,6 +11,11 @@ export interface OdataFilter {
   dataType: DataType;
 }
 
+export interface OrderBy {
+  name: string;
+  direction: "asc" | "desc";
+}
+
 const mapToOdataFilter = ({ name, operand, value, dataType }: OdataFilter) => {
   switch (operand) {
     case "contains":
@@ -27,6 +32,13 @@ export const useOdata = () => {
   const [top, setTop] = useState(20);
   const [skip, setSkip] = useState(0);
   const [filters, setFilters] = useState<OdataFilter[]>([]);
+  const [orderBy, setOrderBy] = useState<OrderBy[]>([]);
+
+  const orderByPara = orderBy
+    .map(sort => `${sort.name} ${sort.direction}`)
+    .join(",");
+  const orderByQuery = orderByPara ? `&$orderBy=${orderByPara}` : "";
+
   const query = `$top=${top}${skip ? `&$skip=${skip}` : ""}${
     filters.length > 0
       ? `&$filter=${filters
@@ -35,6 +47,6 @@ export const useOdata = () => {
           .map(mapToOdataFilter)
           .reduce((prev, curr) => `${prev} and ${curr}`)}`
       : ""
-  }`;
-  return { query, setTop, setSkip, setFilters };
+  }${orderByQuery}`;
+  return { query, setTop, setSkip, setFilters, setOrderBy };
 };
