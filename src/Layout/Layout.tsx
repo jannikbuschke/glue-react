@@ -1,5 +1,5 @@
 import { Link } from "@reach/router";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Icon } from "antd";
 import * as React from "react";
 
 const { Header, Content, Sider } = Layout;
@@ -46,7 +46,9 @@ export const FlatMenu = (props: { items: NavigationItem[] }) => (
         case "LINK":
           return (
             <Menu.Item key={item.to}>
-              <Link to={item.to}>{item.displayName}</Link>
+              <Link to={item.to}>
+                {item.icon && <Icon type={item.icon} />} {item.displayName}
+              </Link>
             </Menu.Item>
           );
         case "CUSTOM":
@@ -70,7 +72,9 @@ export const ApplicationLayout = ({
           {header.map((item: NavigationLink) => {
             return (
               <Menu.Item key={item.to}>
-                <Link to={item.to}>{item.displayName}</Link>
+                <Link to={item.to}>
+                  {item.icon && <Icon type={item.icon} />} {item.displayName}
+                </Link>
               </Menu.Item>
             );
           })}
