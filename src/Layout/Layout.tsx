@@ -58,9 +58,12 @@ export const RenderNavigationItem = (props: NavigationItem) => {
       return null;
   }
 };
-
 export const FlatMenu = (props: { items: NavigationItem[] }) => (
-  <Menu mode="inline" style={{ height: "100%", borderRight: 0 }}>
+  <Menu
+    mode="inline"
+    style={{ height: "100%", borderRight: 0 }}
+    defaultSelectedKeys={[window.location.pathname]}
+  >
     {props.items.map(item => {
       switch (item.kind) {
         case "LINK":
@@ -96,7 +99,11 @@ export const ApplicationLayout = ({
         justifyContent: "space-between"
       }}
     >
-      <Menu theme="dark" mode="horizontal">
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        defaultSelectedKeys={[window.location.pathname]}
+      >
         {headerLeft &&
           headerLeft.map((item: NavigationLink) => (
             <Menu.Item key={item.to}>
