@@ -1,10 +1,9 @@
 {
   "name": "@jbuschke/react-glue",
-  "version": "0.5.0",
+  "version": "0.5.2",
   "private": false,
   "files": [
-    "lib",
-    "main.js"
+    "lib"
   ],
   "main": "./lib/index.js",
   "types": "./lib/types.d.ts",

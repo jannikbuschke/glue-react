@@ -107,8 +107,8 @@ export const createPostSubmitHandler = (
     const response = await postJson(url, transform(values));
     if (response.ok) {
       message.success("Success");
-      const payload = await response.json();
       if (onSuccess) {
+        const payload = await response.json();
         onSuccess(payload);
       }
     } else {

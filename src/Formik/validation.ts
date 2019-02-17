@@ -1,6 +1,12 @@
-interface IValidationResult {
-  memberNames: string[];
-  errorMessage: string;
+interface BadRequestResponse {
+  [field: string]: string[];
+}
+
+function camelize(str: string) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+    if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+    return index == 0 ? match.toLowerCase() : match.toUpperCase();
+  });
 }
 
 export const createValidationHandler = (url: string) => async (values: any) => {
@@ -9,16 +15,19 @@ export const createValidationHandler = (url: string) => async (values: any) => {
     body: JSON.stringify(values),
     headers: { "content-type": "application/json" }
   });
-  if (!response.ok) {
-    console.error(response);
-    throw new Error("someting bad happened");
+
+  if (response.ok) {
+    return;
   }
-  const data: IValidationResult[] = await response.json();
-  const errors = {};
-  data.forEach(element => {
-    errors[element.memberNames[0].toLowerCase()] = element.errorMessage;
-  });
-  if (Object.keys(errors).length) {
-    throw errors;
+  if (response.status === 400) {
+    const data: BadRequestResponse = await response.json();
+    const errors = {};
+    Object.keys(data).forEach(key => {
+      errors[camelize(key)] = data[key];
+    });
+
+    if (Object.keys(errors).length) {
+      throw errors;
+    }
   }
 };

@@ -42,7 +42,6 @@ interface Props {
 }
 
 export const RenderNavigationItem = (props: NavigationItem) => {
-  console.log("RENDER NAVIGATION PROPS", props);
   switch (props.kind) {
     case "LINK":
       return (
