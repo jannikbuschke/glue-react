@@ -1,33 +1,7 @@
-import { Link } from "@reach/router";
-import { Layout, Menu, Icon } from "antd";
+import { Layout, Menu } from "antd";
 import * as React from "react";
-import { MenuItemLink } from "./MenuItemLink";
 
 const { Header, Content, Sider } = Layout;
-
-interface NavigationLink {
-  displayName: string;
-  icon?: string;
-  to: string;
-  kind: "LINK";
-}
-
-interface Custom {
-  component: any;
-  kind: "CUSTOM";
-}
-
-type NavigationItem = NavigationLink | Custom;
-
-export const NavigationItems = ({ items }: { items: NavigationItem[] }) =>
-  items.map(item => {
-    switch (item.kind) {
-      case "LINK":
-        return <MenuItemLink {...item} />;
-      default:
-        return null;
-    }
-  });
 
 interface HeaderProps {
   Left?: any;
@@ -40,36 +14,6 @@ interface Props {
   SideBar: any;
   children: any;
 }
-
-export const RenderNavigationItem = (props: NavigationItem) => {
-  switch (props.kind) {
-    case "LINK":
-      return <MenuItemLink {...props} />;
-    case "CUSTOM":
-      return <props.component {...props} />;
-    default:
-      return null;
-  }
-};
-export const FlatMenu = (props: { items: NavigationItem[] }) => (
-  <Menu
-    mode="inline"
-    style={{ height: "100%", borderRight: 0 }}
-    defaultSelectedKeys={[window.location.pathname]}
-  >
-    {props.items.map(item => {
-      switch (item.kind) {
-        case "LINK":
-          return <MenuItemLink {...item} />;
-        case "CUSTOM": {
-          throw new Error("CUSTOM component no longer supported");
-        }
-        default:
-          return null;
-      }
-    })}
-  </Menu>
-);
 
 export const ApplicationLayout = ({
   Header: { Left: HeaderLeft, Center: HeaderCenter, Right: HeaderRight },
