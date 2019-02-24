@@ -1,6 +1,7 @@
 import { Link } from "@reach/router";
 import { Layout, Menu, Icon } from "antd";
 import * as React from "react";
+import { MenuItemLink } from "./MenuItemLink";
 
 const { Header, Content, Sider } = Layout;
 
@@ -22,21 +23,20 @@ export const NavigationItems = ({ items }: { items: NavigationItem[] }) =>
   items.map(item => {
     switch (item.kind) {
       case "LINK":
-        return (
-          <Menu.Item key={item.to}>
-            <div>asd</div>
-            <Link to={item.to}>{item.displayName}</Link>
-          </Menu.Item>
-        );
+        return <MenuItemLink {...item} />;
       default:
         return null;
     }
   });
 
+interface HeaderProps {
+  Left?: any;
+  Center?: any;
+  Right?: any;
+}
+
 interface Props {
-  header?: NavigationItem[];
-  headerRight?: NavigationItem[];
-  center?: any;
+  Header: HeaderProps;
   sideBarItems?: NavigationItem[];
   children: any;
 }
@@ -44,13 +44,7 @@ interface Props {
 export const RenderNavigationItem = (props: NavigationItem) => {
   switch (props.kind) {
     case "LINK":
-      return (
-        <Menu.Item key={props.to}>
-          <Link to={props.to}>
-            {props.icon && <Icon type={props.icon} />} {props.displayName}
-          </Link>
-        </Menu.Item>
-      );
+      return <MenuItemLink {...props} />;
     case "CUSTOM":
       return <props.component {...props} />;
     default:
@@ -66,13 +60,7 @@ export const FlatMenu = (props: { items: NavigationItem[] }) => (
     {props.items.map(item => {
       switch (item.kind) {
         case "LINK":
-          return (
-            <Menu.Item key={item.to}>
-              <Link to={item.to}>
-                {item.icon && <Icon type={item.icon} />} {item.displayName}
-              </Link>
-            </Menu.Item>
-          );
+          return <MenuItemLink {...item} />;
         case "CUSTOM": {
           throw new Error("CUSTOM component no longer supported");
         }
@@ -84,11 +72,9 @@ export const FlatMenu = (props: { items: NavigationItem[] }) => (
 );
 
 export const ApplicationLayout = ({
-  header: headerLeft,
-  headerRight,
+  Header: { Left: HeaderLeft, Center: HeaderCenter, Right: HeaderRight },
   sideBarItems,
-  children,
-  center
+  children
 }: Props) => (
   <Layout style={{ minHeight: "100vh" }}>
     <Header
@@ -103,21 +89,11 @@ export const ApplicationLayout = ({
         mode="horizontal"
         defaultSelectedKeys={[window.location.pathname]}
       >
-        {headerLeft &&
-          headerLeft.map((item: NavigationLink) => (
-            <Menu.Item key={item.to}>
-              <Link to={item.to}>
-                {item.icon && <Icon type={item.icon} />} {item.displayName}
-              </Link>
-            </Menu.Item>
-          ))}
+        {HeaderLeft}
       </Menu>
-      <Menu theme="dark" />
+      <Menu theme="dark">{HeaderCenter}</Menu>
       <Menu theme="dark" style={{ alignSelf: "center", justifySelf: "" }}>
-        {headerRight &&
-          headerRight.map((item, index) => (
-            <RenderNavigationItem key={index} {...item} />
-          ))}
+        {HeaderRight}
       </Menu>
     </Header>
     <Layout>
