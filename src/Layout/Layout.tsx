@@ -37,7 +37,7 @@ interface HeaderProps {
 
 interface Props {
   Header: HeaderProps;
-  sideBarItems?: NavigationItem[];
+  SideBar: any;
   children: any;
 }
 
@@ -73,7 +73,7 @@ export const FlatMenu = (props: { items: NavigationItem[] }) => (
 
 export const ApplicationLayout = ({
   Header: { Left: HeaderLeft, Center: HeaderCenter, Right: HeaderRight },
-  sideBarItems,
+  SideBar,
   children
 }: Props) => (
   <Layout style={{ minHeight: "100vh" }}>
@@ -97,16 +97,14 @@ export const ApplicationLayout = ({
       </Menu>
     </Header>
     <Layout>
-      {sideBarItems && (
-        <Sider
-          width={200}
-          style={{
-            background: "#fff"
-          }}
-        >
-          <FlatMenu items={sideBarItems} />
-        </Sider>
-      )}
+      <Sider
+        width={200}
+        style={{
+          background: "#fff"
+        }}
+      >
+        {SideBar}
+      </Sider>
       <Layout style={{ padding: "24px 24px 24px" }}>
         <Content
           style={{

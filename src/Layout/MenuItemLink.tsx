@@ -8,10 +8,10 @@ interface MenuItemLinkProps {
   to: string;
 }
 
-export const MenuItemLink = (props: MenuItemLinkProps) => (
-  <Menu.Item key={props.to} {...props}>
+export const MenuItemLink = (props: MenuItemLinkProps) => {
+  return (
     <Link to={props.to}>
       {props.icon && <Icon type={props.icon} />} {props.displayName}
     </Link>
-  </Menu.Item>
-);
+  );
+};
