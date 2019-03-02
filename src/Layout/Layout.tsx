@@ -11,7 +11,7 @@ interface HeaderProps {
 
 interface Props {
   Header: HeaderProps;
-  SideBar: any;
+  SideBar?: any;
   children: any;
 }
 
@@ -36,19 +36,19 @@ export const ApplicationLayout = ({
         {HeaderLeft}
       </Menu>
       <Menu theme="dark">{HeaderCenter}</Menu>
-      <Menu theme="dark" style={{ alignSelf: "center", justifySelf: "" }}>
-        {HeaderRight}
-      </Menu>
+      {HeaderRight}
     </Header>
     <Layout>
-      <Sider
-        width={200}
-        style={{
-          background: "#fff"
-        }}
-      >
-        {SideBar}
-      </Sider>
+      {SideBar && (
+        <Sider
+          width={200}
+          style={{
+            background: "#fff"
+          }}
+        >
+          {SideBar}
+        </Sider>
+      )}
       <Layout style={{ padding: "24px 24px 24px" }}>
         <Content
           style={{
