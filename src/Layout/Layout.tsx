@@ -1,5 +1,6 @@
 import { Layout, Menu } from "antd";
 import * as React from "react";
+import { ShadowPropTypesIOS } from "react-native";
 
 const { Header, Content, Sider } = Layout;
 
@@ -10,34 +11,45 @@ interface HeaderProps {
 }
 
 interface Props {
-  Header: HeaderProps;
+  Header: any;
   SideBar?: any;
   children: any;
 }
 
+export const DefaultApplicationLayout = (props: { children: any }) => (
+  <Layout style={{ minHeight: "100vh" }}>{props.children}</Layout>
+);
+
+DefaultApplicationLayout.Header = (props: { children: any }) => (
+  <Header
+    style={{
+      height: "auto",
+      display: "flex",
+      justifyContent: "space-between"
+    }}
+  >
+    {props.children}
+  </Header>
+);
+
+DefaultApplicationLayout.HeaderMenu = (props: { children: any }) => (
+  <Menu
+    theme="dark"
+    mode="horizontal"
+    defaultSelectedKeys={[window.location.pathname]}
+  >
+    {props.children}
+  </Menu>
+);
+
 export const ApplicationLayout = ({
-  Header: { Left: HeaderLeft, Center: HeaderCenter, Right: HeaderRight },
+  Header,
+  // Header: { Left: HeaderLeft, Center: HeaderCenter, Right: HeaderRight },
   SideBar,
   children
 }: Props) => (
   <Layout style={{ minHeight: "100vh" }}>
-    <Header
-      style={{
-        height: "auto",
-        display: "flex",
-        justifyContent: "space-between"
-      }}
-    >
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        defaultSelectedKeys={[window.location.pathname]}
-      >
-        {HeaderLeft}
-      </Menu>
-      <Menu theme="dark">{HeaderCenter}</Menu>
-      {HeaderRight}
-    </Header>
+    {Header}
     <Layout>
       {SideBar && (
         <Sider
