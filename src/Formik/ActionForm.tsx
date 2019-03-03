@@ -11,6 +11,7 @@ interface IDetailViewProps {
   loading?: boolean;
   error?: string;
   children: any;
+  onSuccessfulSubmit?: () => void;
 }
 
 export const ActionForm = ({
@@ -19,17 +20,20 @@ export const ActionForm = ({
   error,
   children,
   entityName,
-  actionName
+  actionName,
+  onSuccessfulSubmit
 }: IDetailViewProps) => (
   <Formik
     initialValues={initialValues}
     validate={async values => {
-      console.log("validate", values);
       await validate(`api/${entityName}/${actionName}/validate`, values);
     }}
-    onSubmit={values =>
-      postJson(`api/${entityName}/${actionName}/execute`, values)
-    }
+    onSubmit={async (values, actions) => {
+      actions.setSubmitting(true);
+      await postJson(`api/${entityName}/${actionName}/execute`, values);
+      actions.setSubmitting(false);
+      onSuccessfulSubmit && onSuccessfulSubmit();
+    }}
     validateOnBlur={true}
     validateOnChange={false}
     render={(formProps: FormikProps<any>) => (
