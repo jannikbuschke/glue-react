@@ -1,4 +1,4 @@
-export * from "./Editors";
+export * from "./ReferenceEditor";
 export * from "./Actions";
 export * from "./Layout";
 export * from "./NavigateButton";
