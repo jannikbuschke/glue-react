@@ -11,7 +11,8 @@ interface IDetailViewProps {
   loading?: boolean;
   error?: string;
   children: any;
-  onSuccessfulSubmit?: () => void;
+  onSuccessfulSubmit?: (response: Response) => void;
+  addHeaders?: () => Promise<HeadersInit>;
 }
 
 export const ActionForm = ({
@@ -21,25 +22,48 @@ export const ActionForm = ({
   children,
   entityName,
   actionName,
-  onSuccessfulSubmit
+  onSuccessfulSubmit,
+  addHeaders
 }: IDetailViewProps) => (
   <Formik
+    key={"" + loading}
     initialValues={initialValues}
     validate={async values => {
-      await validate(`api/${entityName}/${actionName}/validate`, values);
+      const additionalHeaders = addHeaders ? await addHeaders() : undefined;
+      await validate(
+        `/api/${entityName}/${actionName}/validate?api-version=1.0`,
+        values,
+        additionalHeaders
+      );
     }}
     onSubmit={async (values, actions) => {
       actions.setSubmitting(true);
-      await postJson(`api/${entityName}/${actionName}/execute`, values);
+      const response = await postJson(
+        `/api/${entityName}/${actionName}/execute?api-version=1.0`,
+        values,
+        addHeaders
+      );
       actions.setSubmitting(false);
-      onSuccessfulSubmit && onSuccessfulSubmit();
+      onSuccessfulSubmit && onSuccessfulSubmit(response);
     }}
     validateOnBlur={true}
-    validateOnChange={false}
+    validateOnChange={true}
     render={(formProps: FormikProps<any>) => (
       <Spin spinning={loading === true} delay={250}>
         {error ? (
-          <Alert message="Error" description={error} type="error" closable />
+          <div>
+            <Alert
+              message={error}
+              showIcon={false}
+              type="error"
+              closable={true}
+              banner={true}
+              style={{ marginBottom: 10 }}
+            />
+            <div style={{ pointerEvents: "none", opacity: 0.6 }}>
+              {children}
+            </div>
+          </div>
         ) : (
           children
         )}
