@@ -8,17 +8,16 @@ export const PageContentContainer = (props: any) => (
   <ErrorBoundary {...props} />
 );
 
-const StyledActionContainer = styled.div`
+export const ActionContainer = styled.div`
   display: flex;
   margin-bottom: 8px;
-  // padding: 20px;
   & > * {
     margin: 1px;
   }
 `;
 
 export const PageActionContainer = (props: any) => (
-  <StyledActionContainer {...props} />
+  <ActionContainer {...props} />
 );
 
 export class ErrorBoundary extends React.Component {
