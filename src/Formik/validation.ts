@@ -1,3 +1,5 @@
+import produce from "immer";
+
 interface BadRequestResponse {
   [field: string]: string[];
 }
@@ -9,40 +11,52 @@ function camelize(str: string) {
   });
 }
 
-export const validate = async (url: string, request: any): Promise<any> => {
+export const badRequestResponseToFormikErrors = (data: BadRequestResponse) => {
+  const errors = {};
+  Object.keys(data).forEach(key => {
+    errors[camelize(key)] = data[key];
+  });
+  return errors;
+};
+
+export const validate = async (
+  url: string,
+  request: any,
+  additionalHeaders?: HeadersInit
+): Promise<any> => {
+  const headers = produce(additionalHeaders || {}, draft => {
+    draft["content-type"] = "application/json";
+  });
   const response = await fetch(url, {
     method: "POST",
     body: JSON.stringify(request),
-    headers: { "content-type": "application/json" }
+    headers
   });
 
-  if (response.status === 400) {
-    const data: BadRequestResponse = await response.json();
-    const errors = {};
-    Object.keys(data).forEach(key => {
-      errors[camelize(key)] = data[key];
-    });
+  switch (response.status) {
+    case 400: {
+      const data: BadRequestResponse = await response.json();
+      const errors = badRequestResponseToFormikErrors(data);
 
-    console.log("errors", errors);
-    if (Object.keys(errors).length) {
-      throw errors;
+      console.log("errors", errors);
+      if (Object.keys(errors).length) {
+        // throw errors;
+        return errors;
+      }
+    }
+    case 200: {
+      return {};
+    }
+    case 404: {
+      console.error(
+        `could not find validation handler '${url}'. Did you forget to provide a server side validation handler?`
+      );
+    }
+    default: {
+      console.error("Could not validate request", response);
     }
   }
-  console.log("return empty");
-  return {};
 };
-
-// export const validateDebounced = debounce(_validate, 500, { leading: false });
-
-// export const validate = async (url: string, request: any) => {
-//   console.log("validate...");
-//   const result = await validateDebounced(url, request);
-//   console.log("validated", result);
-//   if (Object.keys(result).length > 0) {
-//     console.log("throw");
-//     throw result;
-//   }
-// };
 
 export const createValidationHandler = (url: string) => async (values: any) =>
   validate(values, url);
