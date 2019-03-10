@@ -4,6 +4,7 @@ import * as React from "react";
 import { Field, FieldProps } from "formik";
 
 import { debounce } from "lodash";
+import { DataLoader } from "../Api";
 
 interface IProps {
   name: string;
