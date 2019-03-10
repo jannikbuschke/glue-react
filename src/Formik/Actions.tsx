@@ -3,6 +3,7 @@ import * as React from "react";
 import { Button, message, Popconfirm, notification } from "antd";
 
 import { FormikActions, FormikValues } from "formik";
+import produce from "immer";
 
 export const createPatchSubmitHandler = (url: string) => async (
   values: FormikValues,
@@ -135,12 +136,23 @@ export const createPostSubmitHandler = (
   }
 };
 
-export const postJson = async (url: string, payload: any) =>
-  fetch(url, {
+export const postJson = async (
+  url: string,
+  payload: any,
+  additionalHeaders?: () => Promise<HeadersInit>
+) => {
+  const headers = produce(
+    additionalHeaders ? await additionalHeaders() : {},
+    draft => {
+      draft["Content-Type"] = "application/json";
+    }
+  );
+  return fetch(url, {
     body: JSON.stringify(payload),
-    headers: { "Content-Type": "application/json" },
+    headers,
     method: "POST"
   });
+};
 
 export const PostAction = (props: any) => (
   <Button {...props}>{props.children || "Create"}</Button>
