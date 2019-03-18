@@ -30,7 +30,7 @@
     "@types/node": "11.10.4",
     "@reach/router": "1.2.1",
     "@types/reach__router": "1.2.3",
-    "immer": "^1.9.3",
+    "immer": "1.9.3",
     "antd": "3.13.6",
     "formik": "1.5.1",
     "lodash": "4.17.11",
