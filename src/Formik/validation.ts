@@ -40,8 +40,7 @@ export const validate = async (
 
       console.log("errors", errors);
       if (Object.keys(errors).length) {
-        // throw errors;
-        return errors;
+        throw errors;
       }
     }
     case 200: {
