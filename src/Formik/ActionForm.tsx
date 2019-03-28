@@ -13,6 +13,7 @@ interface IDetailViewProps {
   children: any;
   onSuccessfulSubmit?: (response: Response) => void;
   addHeaders?: () => Promise<HeadersInit>;
+  validateOnChange?: boolean;
 }
 
 export const ActionForm = ({
@@ -23,7 +24,8 @@ export const ActionForm = ({
   entityName,
   actionName,
   onSuccessfulSubmit,
-  addHeaders
+  addHeaders,
+  validateOnChange
 }: IDetailViewProps) => (
   <Formik
     key={"" + loading}
@@ -47,7 +49,7 @@ export const ActionForm = ({
       onSuccessfulSubmit && onSuccessfulSubmit(response);
     }}
     validateOnBlur={true}
-    validateOnChange={true}
+    validateOnChange={validateOnChange !== undefined ? validateOnChange : true}
     render={(formProps: FormikProps<any>) => (
       <Spin spinning={loading === true} delay={250}>
         {error ? (
