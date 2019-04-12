@@ -5,3 +5,4 @@ export * from "./NavigateButton";
 export * from "./validation";
 export * from "./ActionForm";
 export * from "./RemoteSelectField";
+export * from "./EntityActionButton";
