@@ -8,7 +8,7 @@
   "main": "./lib/index.js",
   "types": "./lib/types.d.ts",
   "scripts": {
-    "tsc-glue": "tsc --version && tsc",
+    "tsc": "tsc --version && tsc",
     "watch": "tsc --watch"
   },
   "dependencies": {
