@@ -43,7 +43,7 @@ export const validate = async (
         throw errors;
       }
     }
-    case 200: {
+    case 204: {
       return {};
     }
     case 404: {
@@ -52,7 +52,12 @@ export const validate = async (
       );
     }
     default: {
-      console.error("Could not validate request", response);
+      console.error(
+        `Could not validate request (no handler for http status code '${
+          response.status
+        }'`,
+        response
+      );
     }
   }
 };

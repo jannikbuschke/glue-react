@@ -32,16 +32,13 @@ export const ActionForm = ({
     initialValues={initialValues}
     validate={async values => {
       const additionalHeaders = addHeaders ? await addHeaders() : undefined;
-      await validate(
-        `/api/${entityName}/${actionName}/validate?api-version=1.0`,
-        values,
-        additionalHeaders
-      );
+      const url = `/api/${entityName}/${actionName}?_action=validate&api-version=1.0`;
+      await validate(url, values, additionalHeaders);
     }}
     onSubmit={async (values, actions) => {
       actions.setSubmitting(true);
       const response = await postJson(
-        `/api/${entityName}/${actionName}/execute?api-version=1.0`,
+        `/api/${entityName}/${actionName}?_action=execute&api-version=1.0`,
         values,
         addHeaders
       );
