@@ -23,10 +23,12 @@
     "formik": ">= 1.4.1 < 2",
     "lodash": ">= 4.17.11 < 5",
     "styled-components": ">= 4.0.3 < 5",
-    "@jbuschke/dx-odata-grid": "0.2.2"
+    "@jbuschke/dx-odata-grid": "0.2.2",
+    "@jbuschke/formik-antd": "0.12.2"
   },
   "devDependencies": {
     "@jbuschke/dx-odata-grid": "0.2.2",
+    "@jbuschke/formik-antd": "0.12.2",
     "@types/node": "11.13.4",
     "@reach/router": "1.2.1",
     "@types/reach__router": "1.2.4",
