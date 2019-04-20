@@ -14,6 +14,7 @@ interface IDetailViewProps {
   onSuccessfulSubmit?: (response: Response) => void;
   addHeaders?: () => Promise<HeadersInit>;
   validateOnChange?: boolean;
+  apiVersion?: string;
 }
 
 export const ActionForm = ({
@@ -25,20 +26,21 @@ export const ActionForm = ({
   actionName,
   onSuccessfulSubmit,
   addHeaders,
-  validateOnChange
+  validateOnChange,
+  apiVersion = "1.0"
 }: IDetailViewProps) => (
   <Formik
     key={"" + loading}
     initialValues={initialValues}
     validate={async values => {
       const additionalHeaders = addHeaders ? await addHeaders() : undefined;
-      const url = `/api/${entityName}/${actionName}?_action=validate&api-version=1.0`;
+      const url = `/api/${entityName}/${actionName}?_action=validate&api-version=${apiVersion}`;
       await validate(url, values, additionalHeaders);
     }}
     onSubmit={async (values, actions) => {
       actions.setSubmitting(true);
       const response = await postJson(
-        `/api/${entityName}/${actionName}?_action=execute&api-version=1.0`,
+        `/api/${entityName}/${actionName}?_action=execute&api-version=${apiVersion}`,
         values,
         addHeaders
       );
