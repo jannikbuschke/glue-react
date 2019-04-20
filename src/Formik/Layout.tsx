@@ -12,7 +12,7 @@ export const ActionContainer = styled.div`
   display: flex;
   margin-bottom: 8px;
   & > * {
-    margin: 8px;
+    margin: 4px;
   }
 `;
 
