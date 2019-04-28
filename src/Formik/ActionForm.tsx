@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Formik, FormikProps } from "formik";
-import { Spin, Alert } from "antd";
+import { Spin, Alert, message } from "antd";
 import { validate } from "./validation";
 import { postJson } from "./Actions";
 
@@ -45,7 +45,11 @@ export const ActionForm = ({
         addHeaders
       );
       actions.setSubmitting(false);
-      onSuccessfulSubmit && onSuccessfulSubmit(response);
+      if (response.ok) {
+        onSuccessfulSubmit && onSuccessfulSubmit(response);
+      } else {
+        message.error(response.statusText);
+      }
     }}
     validateOnBlur={true}
     validateOnChange={validateOnChange !== undefined ? validateOnChange : true}
