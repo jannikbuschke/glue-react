@@ -1,27 +1,29 @@
 import * as React from "react";
 import { IEntityItem } from "./types";
-import { Router } from "@reach/router";
+import { Router, RouteComponentProps } from "@reach/router";
+
+interface Props extends RouteComponentProps {
+  children: React.ReactNode;
+  templateColumns?: string;
+}
 
 export const HorizontalSplit = ({
   templateColumns = "1fr 1fr",
-  children
-}: {
-  children: any;
-  templateColumns?: string;
-}) => (
-  <div
-    style={{
-      display: "grid",
-      gridGap: "20px",
-      gridTemplateColumns: templateColumns
-    }}
-  >
-    {children}
-  </div>
-);
+  children,
+}: Props) => (
+    <div
+      style={{
+        display: "grid",
+        gridGap: "20px",
+        gridTemplateColumns: templateColumns
+      }}
+    >
+      {children}
+    </div>
+  );
 
 export const MasterDetailView = ({ item }: { item: IEntityItem }) => (
-  <>
+  <div>
     <Router primary={false}>
       <item.list path={`${item.path}/:id`} />
     </Router>
@@ -33,7 +35,7 @@ export const MasterDetailView = ({ item }: { item: IEntityItem }) => (
       )}
       <item.detail path={`${item.path}/:id`} />
     </Router>
-  </>
+  </div>
 );
 
 const MasterDetailContainer = (props: any) => (
