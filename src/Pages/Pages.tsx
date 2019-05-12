@@ -25,7 +25,7 @@ export const HorizontalSplit = ({
 export const MasterDetailView = ({ item }: { item: IEntityItem }) => (
   <div>
     <Router primary={false}>
-      <item.list path={`${item.path}/:id`} />
+      <item.list path={`${item.path}/*`} />
     </Router>
     <Router primary={false}>
       <item.new path={`${item.path}/new`} />
