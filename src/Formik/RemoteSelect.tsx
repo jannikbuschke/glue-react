@@ -11,14 +11,20 @@ export const RemoteSelect = ({
   validate,
   url,
   addHeaders,
+  transform,
+  keySelector,
+  renderItem,
   ...restProps
 }: FormikFieldProps &
   SelectProps<any> & {
     url: string;
     addHeaders?: () => Promise<HeadersInit>;
+    transform?: (data: any) => any;
+    keySelector?: (data: any) => string | number;
+    renderItem?: (data: any) => React.ReactNode;
   }) => {
   const [search, setSearch] = React.useState("");
-  const { loading, error, data } = useRemoteJson(
+  const { loading, error, data: raw } = useRemoteJson(
     `${url}&search=${search}`,
     {},
     addHeaders
@@ -27,11 +33,12 @@ export const RemoteSelect = ({
   const debouncedSearch = debounce(setSearch, 500);
 
   if (error) {
-    console.log("error!!!!!");
     return (
       <Alert type="error" showIcon={false} banner={true} message={error} />
     );
   }
+
+  const data = transform ? transform(raw) : raw;
 
   return (
     <Spin spinning={loading} delay={250}>
@@ -47,11 +54,11 @@ export const RemoteSelect = ({
         {...restProps}
       >
         {Array.isArray(data)
-          ? data.map((i: any) => (
-              <Select.Option key={i.id}>
-                {i.name || i.displayName || i.title}
-              </Select.Option>
-            ))
+          ? data.map((item: any, index) => (
+            <Select.Option key={keySelector ? keySelector(item) : item.id || index}>
+              {renderItem ? renderItem(item) : item.name || item.displayName || item.title}
+            </Select.Option>
+          ))
           : null}
       </$Select>
     </Spin>
