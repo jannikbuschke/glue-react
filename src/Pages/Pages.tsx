@@ -1,26 +1,26 @@
-import * as React from "react";
-import { IEntityItem } from "./types";
-import { Router, RouteComponentProps } from "@reach/router";
+import * as React from "react"
+import { IEntityItem } from "./types"
+import { Router, RouteComponentProps } from "@reach/router"
 
 interface Props extends RouteComponentProps {
-  children: React.ReactNode;
-  templateColumns?: string;
+  children: React.ReactNode
+  templateColumns?: string
 }
 
 export const HorizontalSplit = ({
   templateColumns = "1fr 1fr",
-  children
+  children,
 }: Props) => (
   <div
     style={{
       display: "grid",
       gridGap: "20px",
-      gridTemplateColumns: templateColumns
+      gridTemplateColumns: templateColumns,
     }}
   >
     {children}
   </div>
-);
+)
 
 export const MasterDetailView = ({ item }: { item: IEntityItem }) => (
   <div>
@@ -36,22 +36,22 @@ export const MasterDetailView = ({ item }: { item: IEntityItem }) => (
       <item.detail path={`${item.path}/:id`} />
     </Router>
   </div>
-);
+)
 
 const MasterDetailContainer = (props: any) => (
   <div
     style={{
       display: "grid",
       gridGap: "20px",
-      gridTemplateColumns: "2fr 3fr"
+      gridTemplateColumns: "2fr 3fr",
     }}
   >
     {props.children}
   </div>
-);
+)
 
 interface IProps {
-  items: IEntityItem[];
+  items: IEntityItem[]
 }
 
 const Pages = (props: IProps) => (
@@ -72,6 +72,6 @@ const Pages = (props: IProps) => (
       </MasterDetailContainer>
     ))}
   </>
-);
+)
 
-export { Pages };
+export { Pages }

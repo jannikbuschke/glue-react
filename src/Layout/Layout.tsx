@@ -1,36 +1,36 @@
-import { Layout, Menu } from "antd";
-import * as React from "react";
-import { ShadowPropTypesIOS } from "react-native";
+import { Layout, Menu } from "antd"
+import * as React from "react"
+import { ShadowPropTypesIOS } from "react-native"
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content, Sider } = Layout
 
 interface HeaderProps {
-  Left?: any;
-  Center?: any;
-  Right?: any;
+  Left?: any
+  Center?: any
+  Right?: any
 }
 
 interface Props {
-  Header: any;
-  SideBar?: any;
-  children: any;
+  Header: any
+  SideBar?: any
+  children: any
 }
 
 export const DefaultApplicationLayout = (props: { children: any }) => (
   <Layout style={{ minHeight: "100vh" }}>{props.children}</Layout>
-);
+)
 
 DefaultApplicationLayout.Header = (props: { children: any }) => (
   <Header
     style={{
       height: "auto",
       display: "flex",
-      justifyContent: "space-between"
+      justifyContent: "space-between",
     }}
   >
     {props.children}
   </Header>
-);
+)
 
 DefaultApplicationLayout.HeaderMenu = (props: { children: any }) => (
   <Menu
@@ -40,13 +40,13 @@ DefaultApplicationLayout.HeaderMenu = (props: { children: any }) => (
   >
     {props.children}
   </Menu>
-);
+)
 
 export const ApplicationLayout = ({
   Header,
   // Header: { Left: HeaderLeft, Center: HeaderCenter, Right: HeaderRight },
   SideBar,
-  children
+  children,
 }: Props) => (
   <Layout style={{ minHeight: "100vh" }}>
     {Header}
@@ -55,7 +55,7 @@ export const ApplicationLayout = ({
         <Sider
           width={200}
           style={{
-            background: "#fff"
+            background: "#fff",
           }}
         >
           {SideBar}
@@ -68,7 +68,7 @@ export const ApplicationLayout = ({
             background: "#fff",
             padding: 24,
             margin: 0,
-            minHeight: 280
+            minHeight: 280,
           }}
         >
           {children}
@@ -76,4 +76,4 @@ export const ApplicationLayout = ({
       </Layout>
     </Layout>
   </Layout>
-);
+)

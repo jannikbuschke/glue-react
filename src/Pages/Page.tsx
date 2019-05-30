@@ -1,9 +1,9 @@
-import * as React from "react";
-import { PageContainer, PageHeader } from "../Formik/Layout";
+import * as React from "react"
+import { PageContainer, PageHeader } from "../Formik/Layout"
 
 interface IPageProps {
-  title?: string;
-  children: any;
+  title?: string
+  children: any
 }
 
 export const Page = (props: IPageProps) => (
@@ -11,4 +11,4 @@ export const Page = (props: IPageProps) => (
     {props.title && <PageHeader>{props.title}</PageHeader>}
     {props.children}
   </PageContainer>
-);
+)

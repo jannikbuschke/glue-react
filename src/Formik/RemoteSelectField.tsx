@@ -1,33 +1,31 @@
-import { Select, Alert, Spin } from "antd";
-import * as React from "react";
-import { useRemoteJson } from "@jbuschke/dx-odata-grid";
+import { Select, Alert, Spin } from "antd"
+import * as React from "react"
+import { useRemoteJson } from "@jbuschke/dx-odata-grid"
 
-import { Field, FieldProps } from "formik";
+import { Field, FieldProps } from "formik"
 
-import { debounce } from "lodash";
-import { SelectProps } from "antd/lib/select";
+import { debounce } from "lodash"
+import { SelectProps } from "antd/lib/select"
 
 type Props = {
-  name: string;
-  url: string;
-  addHeaders?: () => Promise<HeadersInit>;
-} & SelectProps<any>;
+  name: string
+  url: string
+  addHeaders?: () => Promise<HeadersInit>
+} & SelectProps<any>
 
 export const RemoteSelectField = (props: Props) => {
-  const { name, url } = props;
-  const [search, setSearch] = React.useState("");
+  const { name, url } = props
+  const [search, setSearch] = React.useState("")
   const { loading, error, data } = useRemoteJson(
     `${url}&search=${search}`,
     {},
-    props.addHeaders
-  );
+    props.addHeaders,
+  )
 
-  const debouncedSearch = debounce(setSearch, 500);
+  const debouncedSearch = debounce(setSearch, 500)
 
   if (error) {
-    return (
-      <Alert type="error" showIcon={false} banner={true} message={error} />
-    );
+    return <Alert type="error" showIcon={false} banner={true} message={error} />
   }
 
   return (
@@ -50,13 +48,13 @@ export const RemoteSelectField = (props: Props) => {
             }
             onSearch={debouncedSearch}
             filterOption={false}
-            onBlur={e => {
+            onBlur={(e) => {
               fieldProps.field.onBlur({
-                target: { name }
-              });
+                target: { name },
+              })
             }}
             onChange={(value: any) => {
-              fieldProps.form.setFieldValue(name, value);
+              fieldProps.form.setFieldValue(name, value)
             }}
           >
             {data && data.value
@@ -65,12 +63,12 @@ export const RemoteSelectField = (props: Props) => {
                     <Select.Option key={i.id}>
                       {i.name || i.displayName || i.title}
                     </Select.Option>
-                  );
+                  )
                 })
               : null}
           </Select>
         )}
       </Field>
     </Spin>
-  );
-};
+  )
+}

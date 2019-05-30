@@ -1,3 +1,3 @@
-export * from "./DataLoader";
-export * from "./OdataContext";
-export * from "./useOdata";
+export * from "./DataLoader"
+export * from "./OdataContext"
+export * from "./useOdata"

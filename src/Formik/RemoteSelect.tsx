@@ -1,10 +1,10 @@
-import * as React from "react";
-import { Select as $Select } from "@jbuschke/formik-antd";
-import { FormikFieldProps } from "@jbuschke/formik-antd/lib/FieldProps";
-import { Select, Alert, Spin } from "antd";
-import { useRemoteJson } from "@jbuschke/dx-odata-grid";
-import { debounce } from "lodash";
-import { SelectProps } from "antd/lib/select";
+import * as React from "react"
+import { Select as $Select } from "@jbuschke/formik-antd"
+import { FormikFieldProps } from "@jbuschke/formik-antd/lib/FieldProps"
+import { Select, Alert, Spin } from "antd"
+import { useRemoteJson } from "@jbuschke/dx-odata-grid"
+import { debounce } from "lodash"
+import { SelectProps } from "antd/lib/select"
 
 export const RemoteSelect = ({
   name,
@@ -17,28 +17,26 @@ export const RemoteSelect = ({
   ...restProps
 }: FormikFieldProps &
   SelectProps<any> & {
-    url: string;
-    addHeaders?: () => Promise<HeadersInit>;
-    transform?: (data: any) => any;
-    keySelector?: (data: any) => string | number;
-    renderItem?: (data: any) => React.ReactNode;
+    url: string
+    addHeaders?: () => Promise<HeadersInit>
+    transform?: (data: any) => any
+    keySelector?: (data: any) => string | number
+    renderItem?: (data: any) => React.ReactNode
   }) => {
-  const [search, setSearch] = React.useState("");
+  const [search, setSearch] = React.useState("")
   const { loading, error, data: raw } = useRemoteJson(
     `${url}&search=${search}`,
     {},
-    addHeaders
-  );
+    addHeaders,
+  )
 
-  const debouncedSearch = debounce(setSearch, 500);
+  const debouncedSearch = debounce(setSearch, 500)
 
   if (error) {
-    return (
-      <Alert type="error" showIcon={false} banner={true} message={error} />
-    );
+    return <Alert type="error" showIcon={false} banner={true} message={error} />
   }
 
-  const data = transform ? transform(raw) : raw;
+  const data = transform ? transform(raw) : raw
 
   return (
     <Spin spinning={loading} delay={250}>
@@ -66,5 +64,5 @@ export const RemoteSelect = ({
           : null}
       </$Select>
     </Spin>
-  );
-};
+  )
+}

@@ -1,16 +1,16 @@
-import { Button, message, Spin } from "antd";
-import { Field, FormikProps } from "formik";
-import * as React from "react";
-import { ButtonProps } from "antd/lib/button";
-import { AuthenticationContext } from "../authentication/authenticationContext";
+import { Button, message, Spin } from "antd"
+import { Field, FormikProps } from "formik"
+import * as React from "react"
+import { ButtonProps } from "antd/lib/button"
+import { AuthenticationContext } from "../authentication/authenticationContext"
 
 type Props = {
-  payload: any;
-  path: string;
-  onSuccess?: (value?: any) => void;
-  onError?: (e: any) => void;
-  scopes?: string[];
-};
+  payload: any
+  path: string
+  onSuccess?: (value?: any) => void
+  onError?: (e: any) => void
+  scopes?: string[]
+}
 
 export const EntityActionButton = ({
   path,
@@ -20,8 +20,8 @@ export const EntityActionButton = ({
   scopes,
   ...props
 }: ButtonProps & Props) => {
-  const [loading, setLoading] = React.useState(false);
-  const { getToken } = React.useContext(AuthenticationContext);
+  const [loading, setLoading] = React.useState(false)
+  const { getToken } = React.useContext(AuthenticationContext)
 
   return (
     <Spin delay={750} spinning={loading}>
@@ -29,10 +29,10 @@ export const EntityActionButton = ({
         {({ form }: { field: any; form: FormikProps<any> }) => (
           <Button
             onClick={async (e: any) => {
-              setLoading(true);
+              setLoading(true)
 
               try {
-                const token = Array.isArray(scopes) ? await getToken() : null;
+                const token = Array.isArray(scopes) ? await getToken() : null
 
                 const response = await fetch(path, {
                   method: "POST",
@@ -41,26 +41,26 @@ export const EntityActionButton = ({
                     "content-type": "application/json",
                     ...(token
                       ? { Authorization: "Bearer " + token }
-                      : undefined)
-                  }
-                });
+                      : undefined),
+                  },
+                })
 
                 if (onSuccess && response.ok) {
                   if (response.status === 201) {
-                    const value = await response.json();
-                    onSuccess(value);
+                    const value = await response.json()
+                    onSuccess(value)
                   } else {
-                    onSuccess();
+                    onSuccess()
                   }
                 }
               } catch (E) {
                 if (onError) {
-                  onError(E.toString());
+                  onError(E.toString())
                 } else {
-                  message.error(E.toString());
+                  message.error(E.toString())
                 }
               } finally {
-                setLoading(false);
+                setLoading(false)
               }
             }}
             // loading={form.isSubmitting || loading}
@@ -70,5 +70,5 @@ export const EntityActionButton = ({
         )}
       </Field>
     </Spin>
-  );
-};
+  )
+}

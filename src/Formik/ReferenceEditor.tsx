@@ -1,33 +1,33 @@
-import { Select } from "antd";
-import * as React from "react";
+import { Select } from "antd"
+import * as React from "react"
 
-import { Field, FieldProps } from "formik";
+import { Field, FieldProps } from "formik"
 
-import { debounce } from "lodash";
-import { DataLoader } from "../Api";
+import { debounce } from "lodash"
+import { DataLoader } from "../Api"
 
-import { Select as $Select } from "@jbuschke/formik-antd";
-import { FormikFieldProps } from "@jbuschke/formik-antd/lib/FieldProps";
-import { SelectProps } from "antd/lib/select";
-import { useRemoteJson } from "@jbuschke/dx-odata-grid";
+import { Select as $Select } from "@jbuschke/formik-antd"
+import { FormikFieldProps } from "@jbuschke/formik-antd/lib/FieldProps"
+import { SelectProps } from "antd/lib/select"
+import { useRemoteJson } from "@jbuschke/dx-odata-grid"
 
 interface IProps {
-  name: string;
-  url: string;
-  placeholder?: string;
+  name: string
+  url: string
+  placeholder?: string
 }
 
 interface State {
-  search: string;
+  search: string
 }
 
 export class ReferenceEditor extends React.Component<IProps, State> {
-  public state: State = { search: "" };
+  public state: State = { search: "" }
 
   handleSearch = (search: string) => {
-    this.setState({ search });
-  };
-  debouncedSearch = debounce(this.handleSearch, 500);
+    this.setState({ search })
+  }
+  debouncedSearch = debounce(this.handleSearch, 500)
   public render() {
     return (
       <Field name={this.props.name}>
@@ -48,13 +48,13 @@ export class ReferenceEditor extends React.Component<IProps, State> {
                 defaultActiveFirstOption={false}
                 showArrow={true}
                 filterOption={false}
-                onBlur={e => {
+                onBlur={(e) => {
                   fieldProps.field.onBlur({
-                    target: { name: this.props.name }
-                  });
+                    target: { name: this.props.name },
+                  })
                 }}
                 onChange={(value: any) => {
-                  fieldProps.form.setFieldValue(this.props.name, value);
+                  fieldProps.form.setFieldValue(this.props.name, value)
                 }}
                 notFoundContent={null}
               >
@@ -64,7 +64,7 @@ export class ReferenceEditor extends React.Component<IProps, State> {
                         <Select.Option key={i.id}>
                           {i.name || i.displayName || i.title}
                         </Select.Option>
-                      );
+                      )
                     })
                   : null}
               </Select>
@@ -72,6 +72,6 @@ export class ReferenceEditor extends React.Component<IProps, State> {
           </DataLoader>
         )}
       </Field>
-    );
+    )
   }
 }

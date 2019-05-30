@@ -1,20 +1,20 @@
-import * as React from "react";
-import { PageContentContainer, PageActionContainer } from "../Formik/Layout";
-import { Formik, FormikProps } from "formik";
-import { Spin, Alert } from "antd";
-import { Page } from "./Page";
+import * as React from "react"
+import { PageContentContainer, PageActionContainer } from "../Formik/Layout"
+import { Formik, FormikProps } from "formik"
+import { Spin, Alert } from "antd"
+import { Page } from "./Page"
 
 interface IDetailViewProps {
-  title?: string;
-  initialValues: any;
-  onSubmit: any;
-  validate?: any;
-  validateOnChange?: boolean;
-  validateOnBlur?: boolean;
-  renderActions: (props: FormikProps<any>) => any;
-  renderContent: (props: FormikProps<any>) => any;
-  loading?: boolean;
-  error?: string;
+  title?: string
+  initialValues: any
+  onSubmit: any
+  validate?: any
+  validateOnChange?: boolean
+  validateOnBlur?: boolean
+  renderActions: (props: FormikProps<any>) => any
+  renderContent: (props: FormikProps<any>) => any
+  loading?: boolean
+  error?: string
 }
 
 export const DetailView = ({
@@ -27,7 +27,7 @@ export const DetailView = ({
   renderActions,
   renderContent,
   loading,
-  error
+  error,
 }: IDetailViewProps) => (
   <Page title={title}>
     <Formik
@@ -57,4 +57,4 @@ export const DetailView = ({
       )}
     />
   </Page>
-);
+)
