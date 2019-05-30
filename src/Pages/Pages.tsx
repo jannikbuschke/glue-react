@@ -9,18 +9,18 @@ interface Props extends RouteComponentProps {
 
 export const HorizontalSplit = ({
   templateColumns = "1fr 1fr",
-  children,
+  children
 }: Props) => (
-    <div
-      style={{
-        display: "grid",
-        gridGap: "20px",
-        gridTemplateColumns: templateColumns
-      }}
-    >
-      {children}
-    </div>
-  );
+  <div
+    style={{
+      display: "grid",
+      gridGap: "20px",
+      gridTemplateColumns: templateColumns
+    }}
+  >
+    {children}
+  </div>
+);
 
 export const MasterDetailView = ({ item }: { item: IEntityItem }) => (
   <div>

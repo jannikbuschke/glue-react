@@ -12,8 +12,7 @@ const application = fetch("/api/Aad/Settings?api-version=1.0")
         clientId: v.appId
       },
       cache: { cacheLocation: "localStorage" }
-    })
-
+    });
   });
 
 export const defaultAuthenticationContext = {
@@ -39,17 +38,13 @@ export const defaultAuthenticationContext = {
     }
     try {
       const token = await app.acquireTokenSilent({
-        scopes: [
-          "3c634f33-81a6-4acc-8dbd-8752c8c9f931/user_impersonation"
-        ]
+        scopes: ["3c634f33-81a6-4acc-8dbd-8752c8c9f931/user_impersonation"]
       });
       return token;
     } catch (E) {
       await app.loginPopup();
       const token = await app.acquireTokenSilent({
-        scopes: [
-          "3c634f33-81a6-4acc-8dbd-8752c8c9f931/user_impersonation"
-        ]
+        scopes: ["3c634f33-81a6-4acc-8dbd-8752c8c9f931/user_impersonation"]
       });
       return token;
     }

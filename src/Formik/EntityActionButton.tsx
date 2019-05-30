@@ -2,7 +2,7 @@ import { Button, message, Spin } from "antd";
 import { Field, FormikProps } from "formik";
 import * as React from "react";
 import { ButtonProps } from "antd/lib/button";
-import { AuthenticationContext } from '../authentication/authenticationContext';
+import { AuthenticationContext } from "../authentication/authenticationContext";
 
 type Props = {
   payload: any;
@@ -12,11 +12,14 @@ type Props = {
   scopes?: string[];
 };
 
-export const EntityActionButton = ({ path,
+export const EntityActionButton = ({
+  path,
   payload,
   onSuccess,
   onError,
-  scopes, ...props }: ButtonProps & Props) => {
+  scopes,
+  ...props
+}: ButtonProps & Props) => {
   const [loading, setLoading] = React.useState(false);
   const { getToken } = React.useContext(AuthenticationContext);
 
@@ -29,14 +32,17 @@ export const EntityActionButton = ({ path,
               setLoading(true);
 
               try {
-                const token = Array.isArray(scopes)
-                  ? await getToken()
-                  : null;
+                const token = Array.isArray(scopes) ? await getToken() : null;
 
                 const response = await fetch(path, {
                   method: "POST",
                   body: JSON.stringify(payload),
-                  headers: { "content-type": "application/json", ...(token ? { Authorization: "Bearer " + token } : undefined) }
+                  headers: {
+                    "content-type": "application/json",
+                    ...(token
+                      ? { Authorization: "Bearer " + token }
+                      : undefined)
+                  }
                 });
 
                 if (onSuccess && response.ok) {
@@ -63,6 +69,6 @@ export const EntityActionButton = ({ path,
           />
         )}
       </Field>
-    </Spin>)
-
+    </Spin>
+  );
 };

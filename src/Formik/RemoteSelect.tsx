@@ -55,10 +55,14 @@ export const RemoteSelect = ({
       >
         {Array.isArray(data)
           ? data.map((item: any, index) => (
-            <Select.Option key={keySelector ? keySelector(item) : item.id || index}>
-              {renderItem ? renderItem(item) : item.name || item.displayName || item.title}
-            </Select.Option>
-          ))
+              <Select.Option
+                key={keySelector ? keySelector(item) : item.id || index}
+              >
+                {renderItem
+                  ? renderItem(item)
+                  : item.name || item.displayName || item.title}
+              </Select.Option>
+            ))
           : null}
       </$Select>
     </Spin>
