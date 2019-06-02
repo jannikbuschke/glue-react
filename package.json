@@ -25,14 +25,14 @@
     "lodash": ">= 4.17.11 < 5",
     "styled-components": ">= 4.0.3 < 5",
     "@jbuschke/dx-odata-grid": "0.2.2",
-    "@jbuschke/formik-antd": "1.0.0-preview.6"
+    "@jbuschke/formik-antd": "1.0.0"
   },
   "devDependencies": {
     "jest-dom": "3.2.2",
     "prettier": "1.17.1",
     "react-testing-library": "7.0.0",
     "@jbuschke/dx-odata-grid": "0.2.2",
-    "@jbuschke/formik-antd": "1.0.0-preview.6",
+    "@jbuschke/formik-antd": "1.0.0",
     "@types/node": "11.13.4",
     "@reach/router": "1.2.1",
     "@types/reach__router": "1.2.4",
