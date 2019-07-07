@@ -8,3 +8,4 @@ export * from "./authentication/authenticationContext";
 export * from "./authentication/LogoutButton";
 export * from "./Forms/Form";
 export * from "./Forms/useActions";
+export * from "./data/useData";

@@ -1,5 +1,4 @@
 import * as React from "react";
-import produce from "immer"
 import { useEffect, useState } from "react"
 import { FetchContext } from "@jbuschke/react-fetch-context"
 
@@ -19,6 +18,7 @@ export const useData = (
         fetch(uri, { headers: { "content-type": "application/json" } })
             .then((r: any) => {
                 if (r.ok) {
+                    // todo: test if json
                     return r
                 } else {
                     console.error("http error", r)
