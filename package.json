@@ -33,6 +33,7 @@
     "react-testing-library": "7.0.0",
     "@jbuschke/dx-odata-grid": "0.2.2",
     "@jbuschke/formik-antd": "1.0.0",
+    "@jbuschke/react-fetch-context": "0.2.0",
     "@types/node": "11.13.4",
     "@reach/router": "1.2.1",
     "@types/reach__router": "1.2.4",
