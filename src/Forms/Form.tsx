@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Formik, FormikProps } from "formik";
 import { Spin, Alert, message } from "antd";
-import { FetchContext } from "@jbuschke/react-fetch-context"
 import { useActions } from './useActions';
+import { Form as $Form } from "@jbuschke/formik-antd"
 
 interface FormProps {
     entityName: string;
@@ -64,12 +64,11 @@ export const Form = ({
                                 style={{ marginBottom: 10 }}
                             />
                             <div style={{ pointerEvents: "none", opacity: 0.6 }}>
-
                                 {children(formProps)}
                             </div>
                         </div>
-                    ) : (
-                            children(formProps)
+                    )
+                        : (<$Form>{children(formProps)}</$Form>
                         )}
                 </Spin>
             )}
