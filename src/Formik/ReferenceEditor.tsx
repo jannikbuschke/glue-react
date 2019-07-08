@@ -6,11 +6,6 @@ import { Field, FieldProps } from "formik"
 import { debounce } from "lodash"
 import { DataLoader } from "../Api"
 
-import { Select as $Select } from "@jbuschke/formik-antd"
-import { FormikFieldProps } from "@jbuschke/formik-antd/lib/FieldProps"
-import { SelectProps } from "antd/lib/select"
-import { useRemoteJson } from "@jbuschke/dx-odata-grid"
-
 interface IProps {
   name: string
   url: string
@@ -60,12 +55,12 @@ export class ReferenceEditor extends React.Component<IProps, State> {
               >
                 {data && data.value
                   ? data.value.map((i: any) => {
-                      return (
-                        <Select.Option key={i.id}>
-                          {i.name || i.displayName || i.title}
-                        </Select.Option>
-                      )
-                    })
+                    return (
+                      <Select.Option key={i.id}>
+                        {i.name || i.displayName || i.title}
+                      </Select.Option>
+                    )
+                  })
                   : null}
               </Select>
             )}

@@ -18,8 +18,12 @@ export const useData = (
         fetch(uri, { headers: { "content-type": "application/json" } })
             .then((r: any) => {
                 if (r.ok) {
-                    // todo: test if json
-                    return r
+                    const contentType = r.headers ? r.headers.get("content-type") : "";
+                    if (contentType && contentType.indexOf("application/json") !== -1) {
+                        return r
+                    }
+                    throw new Error(`expected application/json response but got '${contentType}'`)
+
                 } else {
                     console.error("http error", r)
                     throw Error(r.statusText)

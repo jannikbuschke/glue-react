@@ -1,11 +1,11 @@
 import { Select, Alert, Spin } from "antd"
 import * as React from "react"
-import { useRemoteJson } from "@jbuschke/dx-odata-grid"
 
 import { Field, FieldProps } from "formik"
 
 import { debounce } from "lodash"
 import { SelectProps } from "antd/lib/select"
+import { useData } from '../data/useData';
 
 type Props = {
   name: string
@@ -16,10 +16,9 @@ type Props = {
 export const RemoteSelectField = (props: Props) => {
   const { name, url } = props
   const [search, setSearch] = React.useState("")
-  const { loading, error, data } = useRemoteJson(
+  const { loading, error, data } = useData(
     `${url}&search=${search}`,
-    {},
-    props.addHeaders,
+    {}
   )
 
   const debouncedSearch = debounce(setSearch, 500)
@@ -59,12 +58,12 @@ export const RemoteSelectField = (props: Props) => {
           >
             {data && data.value
               ? data.value.map((i: any) => {
-                  return (
-                    <Select.Option key={i.id}>
-                      {i.name || i.displayName || i.title}
-                    </Select.Option>
-                  )
-                })
+                return (
+                  <Select.Option key={i.id}>
+                    {i.name || i.displayName || i.title}
+                  </Select.Option>
+                )
+              })
               : null}
           </Select>
         )}
