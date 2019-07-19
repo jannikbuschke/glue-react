@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Formik, FormikProps } from "formik";
+import { Formik, FormikProps, FormikErrors } from "formik";
 import { Spin, Alert, message } from "antd";
 import { useActions } from './useActions';
 import { Form as $Form } from "@jbuschke/formik-antd"
@@ -12,9 +12,9 @@ interface FormProps {
     error?: string;
     children: any;
     onSuccessfulSubmit?: (response: Response) => void;
-    addHeaders?: () => Promise<HeadersInit>;
     validateOnChange?: boolean;
     apiVersion?: string;
+    validate?: ((values: any) => void | object | Promise<FormikErrors<any>>) | undefined
 }
 
 export const Form = ({
@@ -25,22 +25,23 @@ export const Form = ({
     entityName,
     actionName,
     onSuccessfulSubmit,
-    addHeaders,
     validateOnChange,
-    apiVersion = "1.0"
+    apiVersion = "1.0",
+    validate: overrideValidate
 }: FormProps) => {
 
     const { submit, validate } = useActions(`/api/${entityName}/${actionName}?api-version=${apiVersion}`)
+
+    const $validate = overrideValidate ? overrideValidate : validate;
 
     return (
         <Formik
             enableReinitialize={true}
             initialValues={initialValues}
-            validate={async values => {
-                await validate(values)
-            }}
+            validate={$validate}
             onSubmit={async (values, actions) => {
                 actions.setSubmitting(true);
+                await $validate(values)
                 const response = await submit(values)
                 actions.setSubmitting(false);
                 if (response.ok) {
