@@ -2,12 +2,12 @@ import * as React from "react";
 import { useEffect, useState } from "react"
 import { FetchContext } from "@jbuschke/react-fetch-context"
 
-export const useData = (
+export function useData<T>(
     uri: string,
-    placeholder?: any,
-) => {
+    placeholder?: T,
+) {
     const fetch = React.useContext(FetchContext);
-    const [data, setData] = useState<any>(placeholder ? placeholder : null)
+    const [data, setData] = useState<T | null>(placeholder ? placeholder : null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
     const [key, setKey] = useState(Math.random())

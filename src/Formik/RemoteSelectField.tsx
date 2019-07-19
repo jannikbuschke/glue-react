@@ -16,9 +16,9 @@ type Props = {
 export const RemoteSelectField = (props: Props) => {
   const { name, url } = props
   const [search, setSearch] = React.useState("")
-  const { loading, error, data } = useData(
+  const { loading, error, data } = useData<any>(
     `${url}&search=${search}`,
-    {}
+    {} as any
   )
 
   const debouncedSearch = debounce(setSearch, 500)
@@ -47,7 +47,7 @@ export const RemoteSelectField = (props: Props) => {
             }
             onSearch={debouncedSearch}
             filterOption={false}
-            onBlur={(e) => {
+            onBlur={(e: any) => {
               fieldProps.field.onBlur({
                 target: { name },
               })
