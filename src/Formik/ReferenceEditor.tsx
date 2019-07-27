@@ -55,12 +55,12 @@ export class ReferenceEditor extends React.Component<IProps, State> {
               >
                 {data && data.value
                   ? data.value.map((i: any) => {
-                    return (
-                      <Select.Option key={i.id}>
-                        {i.name || i.displayName || i.title}
-                      </Select.Option>
-                    )
-                  })
+                      return (
+                        <Select.Option key={i.id}>
+                          {i.name || i.displayName || i.title}
+                        </Select.Option>
+                      )
+                    })
                   : null}
               </Select>
             )}

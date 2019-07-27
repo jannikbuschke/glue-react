@@ -53,9 +53,7 @@ export const validate = async (
     }
     default: {
       console.error(
-        `Could not validate request (no handler for http status code '${
-          response.status
-        }'`,
+        `Could not validate request (no handler for http status code '${response.status}'`,
         response,
       )
     }

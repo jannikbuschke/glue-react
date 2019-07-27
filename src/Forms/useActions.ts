@@ -1,62 +1,73 @@
 import * as React from "react"
-import { FetchContext } from '@jbuschke/react-fetch-context';
+import { FetchContext } from "@jbuschke/react-fetch-context"
 
 interface BadRequestResponse {
-    [field: string]: string[];
+  [field: string]: string[]
 }
 
 function camelize(str: string) {
-    return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
-        if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
-        return index == 0 ? match.toLowerCase() : match.toUpperCase();
-    });
+  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+    if (+match === 0) return "" // or if (/\s+/.test(match)) for white spaces
+    return index == 0 ? match.toLowerCase() : match.toUpperCase()
+  })
 }
 
 const badRequestResponseToFormikErrors = (data: BadRequestResponse) => {
-    const errors = {};
-    Object.keys(data).forEach(key => {
-        errors[camelize(key)] = data[key];
-    });
-    return errors;
-};
+  const errors = {}
+  Object.keys(data).forEach((key) => {
+    errors[camelize(key)] = data[key]
+  })
+  return errors
+}
 
 export function useActions(url: string, additionalInfo?: any) {
-    const fetch = React.useContext(FetchContext)
+  const fetch = React.useContext(FetchContext)
 
-    function send(values: any, intent: "execute" | "validate") {
-        return fetch(url, {
-            method: "POST", body: JSON.stringify(values),
-            headers: { "x-action-intent": intent, "content-type": "application/json" }
-        }, additionalInfo)
-    }
+  function send(values: any, intent: "execute" | "validate") {
+    return fetch(
+      url,
+      {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: {
+          "x-action-intent": intent,
+          "content-type": "application/json",
+        },
+      },
+      additionalInfo,
+    )
+  }
 
-    return {
-        submit: (values: any) => send(values, "execute"),
-        validate: async (values: any): Promise<any> => {
+  return {
+    submit: (values: any) => send(values, "execute"),
+    validate: async (values: any): Promise<any> => {
+      const response = await send(values, "validate")
 
-            const response = await send(values, "validate")
+      switch (response.status) {
+        case 400: {
+          const data: BadRequestResponse = await response.json()
+          const errors = badRequestResponseToFormikErrors(data)
 
-            switch (response.status) {
-                case 400: {
-                    const data: BadRequestResponse = await response.json();
-                    const errors = badRequestResponseToFormikErrors(data);
-
-                    console.log("errors", errors);
-                    if (Object.keys(errors).length) {
-                        throw errors;
-                    }
-                }
-                case 204: {
-                    return {};
-                }
-                case 404: {
-                    throw Error(`could not find validation handler '${url}'. Did you forget to provide a server side validation handler?`)
-                }
-                default: {
-                    throw Error(`Could not validate request (no handler for http status code '${response.status}'`)
-                    console.error(response);
-                }
-            }
+          console.log("errors", errors)
+          if (Object.keys(errors).length) {
+            throw errors
+          }
         }
-    }
+        case 204: {
+          return {}
+        }
+        case 404: {
+          throw Error(
+            `could not find validation handler '${url}'. Did you forget to provide a server side validation handler?`,
+          )
+        }
+        default: {
+          throw Error(
+            `Could not validate request (no handler for http status code '${response.status}'`,
+          )
+          console.error(response)
+        }
+      }
+    },
+  }
 }
