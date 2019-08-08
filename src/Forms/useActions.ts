@@ -21,6 +21,7 @@ const badRequestResponseToFormikErrors = (data: BadRequestResponse) => {
 }
 
 export function useActions(url: string, additionalInfo?: any) {
+  const [error,setError]=React.useState("")
   const fetch = React.useContext(FetchContext)
 
   function send(values: any, intent: "execute" | "validate") {
@@ -62,9 +63,7 @@ export function useActions(url: string, additionalInfo?: any) {
           )
         }
         default: {
-          throw Error(
-            `Could not validate request (no handler for http status code '${response.status}'`,
-          )
+          setError(`${response.statusText} ${response.status}`)
           console.error(response)
         }
       }

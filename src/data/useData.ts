@@ -9,7 +9,7 @@ export function useData<T>(
 ) {
   const fetch = React.useContext(FetchContext)
   const [data, setData] = useState<T | null>(placeholder ? placeholder : null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const [key, setKey] = useState(Math.random())
 
