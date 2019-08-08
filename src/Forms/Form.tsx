@@ -2,7 +2,6 @@ import * as React from "react"
 import { Formik, FormikProps, FormikErrors } from "formik"
 import { Spin, Alert, message } from "antd"
 import { useActions } from "./useActions"
-import { Form as $Form } from "@jbuschke/formik-antd"
 
 interface FormProps {
   entityName: string
@@ -17,6 +16,7 @@ interface FormProps {
   validate?:
     | ((values: any) => void | object | Promise<FormikErrors<any>>)
     | undefined
+  additionalInfo?: any
 }
 
 export const Form = ({
@@ -30,9 +30,10 @@ export const Form = ({
   validateOnChange,
   apiVersion = "1.0",
   validate: overrideValidate,
+  additionalInfo
 }: FormProps) => {
   const { submit, validate } = useActions(
-    `/api/${entityName}/${actionName}?api-version=${apiVersion}`,
+    `/api/${entityName}/${actionName}?api-version=${apiVersion}`, additionalInfo
   )
 
   const $validate = overrideValidate ? overrideValidate : validate
@@ -50,14 +51,14 @@ export const Form = ({
         if (response.ok) {
           onSuccessfulSubmit && onSuccessfulSubmit(response)
         } else {
-          message.error(response.statusText)
+          // message.error(response.statusText)
         }
       }}
       validateOnBlur={true}
       validateOnChange={
         validateOnChange !== undefined ? validateOnChange : true
       }
-      render={(formProps: FormikProps<any>) => (
+      render={(formikProps: FormikProps<any>) => (
         <Spin spinning={loading === true} delay={250}>
           {error ? (
             <div>
@@ -70,11 +71,11 @@ export const Form = ({
                 style={{ marginBottom: 10 }}
               />
               <div style={{ pointerEvents: "none", opacity: 0.6 }}>
-                {children(formProps)}
+                {children(formikProps)}
               </div>
             </div>
           ) : (
-            <$Form>{children(formProps)}</$Form>
+            children(formikProps)
           )}
         </Spin>
       )}
