@@ -1,11 +1,16 @@
 import * as React from "react"
 import { FetchContext } from "@jbuschke/react-fetch-context"
+import { set } from "lodash"
 
 interface BadRequestResponse {
   [field: string]: string[]
 }
 
 function camelize(str: string) {
+  return str.split(".").map(_camelize).join(".")
+}
+
+function _camelize(str: string) {
   return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
     if (+match === 0) return "" // or if (/\s+/.test(match)) for white spaces
     return index == 0 ? match.toLowerCase() : match.toUpperCase()
@@ -15,13 +20,14 @@ function camelize(str: string) {
 const badRequestResponseToFormikErrors = (data: BadRequestResponse) => {
   const errors = {}
   Object.keys(data).forEach((key) => {
-    errors[camelize(key)] = data[key]
+    const path = camelize(key)
+    set(errors, path, data[key])
   })
   return errors
 }
 
 export function useActions(url: string, additionalInfo?: any) {
-  const [error,setError]=React.useState("")
+  const [error, setError] = React.useState("")
   const fetch = React.useContext(FetchContext)
 
   function send(values: any, intent: "execute" | "validate") {
