@@ -43,7 +43,7 @@ export class ReferenceEditor extends React.Component<IProps, State> {
                 defaultActiveFirstOption={false}
                 showArrow={true}
                 filterOption={false}
-                onBlur={(e) => {
+                onBlur={(e:any) => {
                   fieldProps.field.onBlur({
                     target: { name: this.props.name },
                   })
