@@ -25,7 +25,8 @@
     "lodash": ">= 4.17.11 < 5",
     "styled-components": ">= 4.0.3 < 5",
     "@jbuschke/formik-antd": "1.0.0",
-    "@jbuschke/react-fetch-context": ">= 0.1.0"
+    "@jbuschke/react-fetch-context": ">= 0.1.0",
+    "msal-react": ">= 0.1.0"
   },
   "devDependencies": {
     "jest-dom": "3.2.2",
@@ -48,6 +49,7 @@
     "typescript": "3.6.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
-    "msal": "1.1.3"
+    "msal": "1.1.3",
+    "msal-react": "0.1.0"
   }
 }
