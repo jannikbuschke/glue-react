@@ -2,12 +2,12 @@ import * as React from "react"
 
 import { Button, message, Popconfirm, notification } from "antd"
 
-import { FormikActions, FormikValues } from "formik"
+import {  FormikValues } from "formik"
 import produce from "immer"
 
 export const createPatchSubmitHandler = (url: string) => async (
   values: FormikValues,
-  actions: FormikActions<any>,
+  actions: any,
 ) => {
   try {
     const response = await patchJson(url, values)
@@ -103,7 +103,7 @@ export const createPostSubmitHandler = (
   url: string,
   onSuccess?: (result: any) => void,
   transform: (values: any) => any = (values) => values,
-) => async (values: FormikValues, actions: FormikActions<any>) => {
+) => async (values: FormikValues, actions: any) => {
   try {
     const response = await postJson(url, transform(values))
     if (response.ok) {
