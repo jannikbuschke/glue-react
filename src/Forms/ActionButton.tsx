@@ -21,12 +21,11 @@ export const ActionButton = ({
   ...props }: ButtonProps & Props) => {
   const [loading, setLoading] = React.useState(false);
   const fetch = React.useContext(FetchContext);
-
   return (
-    <Spin delay={750} spinning={loading}>
       <Field>
         {({ form }: { field: any; form: FormikProps<any> }) => (
           <Button
+            loading={loading}
             onClick={async () => {
               setLoading(true);
 
@@ -54,7 +53,6 @@ export const ActionButton = ({
           />
         )}
       </Field>
-    </Spin>
   );
 
 };
