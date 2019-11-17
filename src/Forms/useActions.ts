@@ -57,7 +57,7 @@ export function useActions(url: string, additionalInfo?: any) {
 
           console.log("errors", errors)
           if (Object.keys(errors).length) {
-            throw errors
+            return errors
           }
         }
         case 204: {
