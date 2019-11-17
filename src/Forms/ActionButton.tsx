@@ -42,6 +42,9 @@ export const ActionButton = ({
                     const value = await response.json();
                     onSuccess(value)
                   }
+                  if(response.status===200){
+                    onSuccess()
+                  }
                 }
             }catch(E){
                 message.error(E.toString())
