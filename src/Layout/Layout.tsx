@@ -1,8 +1,7 @@
-import { Layout, Menu } from "antd"
+import { Layout, Menu, Row } from "antd"
 import * as React from "react"
-import { ShadowPropTypesIOS } from "react-native"
 
-const { Header, Content, Sider } = Layout
+const { Header,  Sider } = Layout
 
 interface HeaderProps {
   Left?: any
@@ -14,6 +13,7 @@ interface Props {
   Header: any
   SideBar?: any
   children: any
+  footer?: React.ReactNode
 }
 
 export const DefaultApplicationLayout = (props: { children: any }) => (
@@ -44,13 +44,13 @@ DefaultApplicationLayout.HeaderMenu = (props: { children: any }) => (
 
 export const ApplicationLayout = ({
   Header,
-  // Header: { Left: HeaderLeft, Center: HeaderCenter, Right: HeaderRight },
   SideBar,
   children,
+  footer
 }: Props) => (
   <Layout style={{ minHeight: "100vh" }}>
     {Header}
-    <Layout>
+    <Layout style={{flex:1}}>
       {SideBar && (
         <Sider
           width={200}
@@ -61,8 +61,8 @@ export const ApplicationLayout = ({
           {SideBar}
         </Sider>
       )}
-      <Layout style={{ padding: "24px 24px 24px" }}>
-        <Content
+      <Layout style={{ padding: "24px 24px 24px", flex:1 }}>
+        {/* <Content
           style={{
             height: "1fr",
             background: "#fff",
@@ -70,9 +70,11 @@ export const ApplicationLayout = ({
             margin: 0,
             minHeight: 280,
           }}
-        >
+        > */}
+        <div style={{ flex:1 }}>
           {children}
-        </Content>
+        </div>
+        {footer&&<Row>{footer}</Row>}
       </Layout>
     </Layout>
   </Layout>
