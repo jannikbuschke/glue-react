@@ -1,7 +1,7 @@
 import { Layout, Menu, Row } from "antd"
 import * as React from "react"
 
-const { Header,  Sider } = Layout
+const { Header, Sider, Content } = Layout
 
 interface HeaderProps {
   Left?: any
@@ -61,20 +61,13 @@ export const ApplicationLayout = ({
           {SideBar}
         </Sider>
       )}
-      <Layout style={{ padding: "24px 24px 24px", flex:1 }}>
-        {/* <Content
-          style={{
-            height: "1fr",
-            background: "#fff",
-            padding: 24,
-            margin: 0,
-            minHeight: 280,
-          }}
-        > */}
+      <Layout>
+        <Content>
         <div style={{ flex:1 }}>
           {children}
         </div>
-        {footer&&<Row>{footer}</Row>}
+        </Content>
+        {footer && <Row>{footer}</Row>}
       </Layout>
     </Layout>
   </Layout>
