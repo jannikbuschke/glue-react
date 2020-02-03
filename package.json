@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "jest-dom": "3.2.2",
-    "prettier": "1.18.2",
+    "prettier": "1.19.1",
     "react-testing-library": "7.0.0",
     "formik-antd": "1.8.0",
     "@jbuschke/react-fetch-context": "0.3.0",
