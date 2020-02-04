@@ -63,6 +63,7 @@ export const RemoteSelect = ({
           ? data.map((item: any, index) => (
               <Select.Option
                 key={keySelector ? keySelector(item) : item.id || index}
+                value={item.value}
               >
                 {renderItem
                   ? renderItem(item)

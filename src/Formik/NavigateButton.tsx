@@ -1,4 +1,4 @@
-import { Button, Icon } from "antd"
+import { Button } from "antd"
 import * as React from "react"
 import { Link } from "@reach/router"
 import { ButtonProps } from "antd/lib/button"

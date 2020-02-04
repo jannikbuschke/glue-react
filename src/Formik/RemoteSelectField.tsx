@@ -1,8 +1,6 @@
 import { Select, Alert, Spin } from "antd"
 import * as React from "react"
-
 import { Field, FieldProps } from "formik"
-
 import { debounce } from "lodash"
 import { SelectProps } from "antd/lib/select"
 
@@ -68,7 +66,7 @@ export const RemoteSelectField = (props: Props) => {
             {data && data.value
               ? data.value.map((i: any) => {
                   return (
-                    <Select.Option key={i.id}>
+                    <Select.Option key={i.id} value={i.id}>
                       {i.name || i.displayName || i.title}
                     </Select.Option>
                   )
