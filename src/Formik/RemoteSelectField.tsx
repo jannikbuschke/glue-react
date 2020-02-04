@@ -5,7 +5,6 @@ import { Field, FieldProps } from "formik"
 
 import { debounce } from "lodash"
 import { SelectProps } from "antd/lib/select"
-import { useData } from "../data/useData"
 
 type Props = {
   name: string
@@ -16,10 +15,20 @@ type Props = {
 export const RemoteSelectField = (props: Props) => {
   const { name, url } = props
   const [search, setSearch] = React.useState("")
-  const { loading, error, data } = useData<any>(
-    `${url}&search=${search}`,
-    {} as any,
-  )
+  const [data,setData]=React.useState<any>(null)
+  const [error,setError]=React.useState("")
+
+  React.useEffect(()=>{
+    (async()=>{
+      const response = await fetch(`${url}&search=${search}`, {})
+      if(response.ok){
+        setData(await response.json())
+      }else{
+        setError(response.statusText)
+      }
+    })()
+  },[url,search])
+
 
   const debouncedSearch = debounce(setSearch, 500)
 
@@ -28,7 +37,7 @@ export const RemoteSelectField = (props: Props) => {
   }
 
   return (
-    <Spin spinning={loading} delay={250}>
+    <Spin spinning={data===null||data===undefined} delay={250}>
       <Field name={name}>
         {(fieldProps: FieldProps<any>) => (
           <Select

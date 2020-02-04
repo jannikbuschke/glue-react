@@ -4,7 +4,6 @@ import { FormikFieldProps } from "formik-antd/lib/FieldProps"
 import { Select, Alert, Spin } from "antd"
 import { debounce } from "lodash"
 import { SelectProps } from "antd/lib/select"
-import { useData } from "../data/useData"
 
 export const RemoteSelect = ({
   name,
@@ -24,7 +23,20 @@ export const RemoteSelect = ({
     renderItem?: (data: any) => React.ReactNode
   }) => {
   const [search, setSearch] = React.useState("")
-  const { loading, error, data: raw } = useData(`${url}&search=${search}`, {})
+
+  const [raw,setData]=React.useState<any>(null)
+  const [error,setError]=React.useState("")
+
+  React.useEffect(()=>{
+    (async()=>{
+      const response = await fetch(`${url}&search=${search}`, {})
+      if(response.ok){
+        setData(await response.json())
+      }else{
+        setError(response.statusText)
+      }
+    })()
+  },[url,search])
 
   const debouncedSearch = debounce(setSearch, 500)
 
@@ -35,7 +47,7 @@ export const RemoteSelect = ({
   const data = transform ? transform(raw) : raw
 
   return (
-    <Spin spinning={loading} delay={250}>
+    <Spin spinning={data===null||data===undefined} delay={250}>
       <$Select
         name={name}
         showSearch={true}
