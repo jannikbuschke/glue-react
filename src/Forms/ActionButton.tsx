@@ -1,7 +1,6 @@
 import { Field, FormikProps } from "formik";
 import * as React from "react";
 import { ButtonProps } from "antd/lib/button";
-import { FetchContext } from '@jbuschke/react-fetch-context';
 import { Button, Spin, message } from 'antd';
 
 type Props = {
@@ -20,7 +19,6 @@ export const ActionButton = ({
   scopes, 
   ...props }: ButtonProps & Props) => {
   const [loading, setLoading] = React.useState(false);
-  const fetch = React.useContext(FetchContext);
   return (
       <Field>
         {({ form }: { field: any; form: FormikProps<any> }) => (

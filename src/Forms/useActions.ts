@@ -1,5 +1,4 @@
 import * as React from "react"
-import { FetchContext } from "@jbuschke/react-fetch-context"
 import { set } from "lodash"
 
 interface BadRequestResponse {
@@ -28,7 +27,6 @@ const badRequestResponseToFormikErrors = (data: BadRequestResponse) => {
 
 export function useActions(url: string, additionalInfo?: any) {
   const [error, setError] = React.useState("")
-  const fetch = React.useContext(FetchContext)
 
   function send(values: any, intent: "execute" | "validate") {
     return fetch(
@@ -41,7 +39,6 @@ export function useActions(url: string, additionalInfo?: any) {
           "content-type": "application/json",
         },
       },
-      additionalInfo,
     )
   }
 
