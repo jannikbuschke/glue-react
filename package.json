@@ -27,24 +27,21 @@
     "formik-antd": ">=1.6.0"
   },
   "devDependencies": {
-    "jest-dom": "3.2.2",
     "prettier": "1.19.1",
-    "react-testing-library": "7.0.0",
     "formik-antd": "2.0.0-beta.1",
     "@types/node": "12.7.11",
     "@reach/router": "1.2.1",
     "@types/reach__router": "1.2.5",
     "immer": "2.1.5",
-    "antd": "4.0.0-rc.3",
+    "antd": "4.0.0-rc.4",
     "formik": "2.0.3",
     "lodash": "4.17.15",
     "styled-components": "4.4.0",
-    "@types/jest": "24.0.18",
     "@types/lodash": "4.14.141",
     "@types/react-dom": "16.9.1",
     "@types/styled-components": "4.1.19",
     "typescript": "3.6.3",
-    "react": "16.10.2",
-    "react-dom": "16.10.2"
+    "react": "16.12.0",
+    "react-dom": "16.12.0"
   }
 }
