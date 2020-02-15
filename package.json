@@ -24,9 +24,11 @@
     "formik": ">= 2.0.3 < 3",
     "lodash": ">= 4.17.11 < 5",
     "styled-components": ">= 4.0.3 < 5",
-    "formik-antd": ">=1.6.0"
+    "formik-antd": ">=1.6.0",
+    "use-lodash-debounce": ">= 1.0.0 < 2"
   },
   "devDependencies": {
+    "use-lodash-debounce": "1.1.0",
     "prettier": "1.19.1",
     "formik-antd": "2.0.0-beta.1",
     "@types/node": "12.7.11",
