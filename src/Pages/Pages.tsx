@@ -26,6 +26,7 @@ export const MasterDetailView = ({ item }: { item: IEntityItem }) => (
   <>
     <Router primary={false}>
       <item.list path={`${item.path}/*`} />
+      <item.list path={`${item.path}/:id`} />
     </Router>
     <Router primary={false}>
       <item.new path={`${item.path}/new`} />
