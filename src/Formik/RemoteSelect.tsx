@@ -8,7 +8,7 @@ import { SelectProps } from "antd/lib/select"
 export const RemoteSelect = ({
   name,
   validate,
-  url,
+  fetch,
   addHeaders,
   transform,
   keySelector,
@@ -16,7 +16,7 @@ export const RemoteSelect = ({
   ...restProps
 }: FormikFieldProps &
   SelectProps<any> & {
-    url: string
+    fetch: (search: string) => Promise<any>
     addHeaders?: () => Promise<HeadersInit>
     transform?: (data: any) => any
     keySelector?: (data: any) => string | number
@@ -24,19 +24,19 @@ export const RemoteSelect = ({
   }) => {
   const [search, setSearch] = React.useState("")
 
-  const [raw,setData]=React.useState<any>(null)
-  const [error,setError]=React.useState("")
+  const [raw, setData] = React.useState<any>(null)
+  const [error, setError] = React.useState("")
 
-  React.useEffect(()=>{
-    (async()=>{
-      const response = await fetch(`${url}&search=${search}`, {})
-      if(response.ok){
-        setData(await response.json())
-      }else{
-        setError(response.statusText)
+  React.useEffect(() => {
+    ;(async () => {
+      try {
+        const response = await fetch(search)
+        setData(response)
+      } catch (e) {
+        setError(e.toString())
       }
     })()
-  },[url,search])
+  }, [search])
 
   const debouncedSearch = debounce(setSearch, 500)
 
@@ -47,7 +47,7 @@ export const RemoteSelect = ({
   const data = transform ? transform(raw) : raw
 
   return (
-    <Spin spinning={data===null||data===undefined} delay={250}>
+    <Spin spinning={data === null || data === undefined} delay={250}>
       <$Select
         name={name}
         showSearch={true}
