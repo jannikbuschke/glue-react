@@ -62,8 +62,9 @@ export function useSubmit<T = any>(
 ): [
   (values: any) => Promise<T | undefined>,
   (values: any) => Promise<ValidationResult | undefined>,
+  string|null
 ] {
-  const [error, setError] = React.useState("")
+  const [error, setError] = React.useState<string|null>(null)
   return [
     async (values: any): Promise<T | undefined> => {
       const response = await send(url, values, "execute")
@@ -71,23 +72,24 @@ export function useSubmit<T = any>(
         // what to do if bad request?
         console.error(response)
         setError(response.statusText)
-        return
+        return undefined
       } else {
         const data = (await response.json()) as T
         return data
       }
     },
-    async (values: any): Promise<any | undefined> => {
+    async (values: any): Promise<ValidationResult | undefined> => {
       const response = await send(url, values, "validate")
       if (response.ok) {
         const data = (await response.json()) as ValidationResult
         const errors = toFormikErrors(data.errors)
-        return errors
+        return { isValid: data.isValid, errors }
       } else {
         console.error(response)
         setError("error while validating: " + response.statusText)
         return
       }
     },
+    error
   ]
 }
