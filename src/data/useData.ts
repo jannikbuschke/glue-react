@@ -23,6 +23,7 @@ export function useData<T>(
     )
       .then((r: any) => {
         if (r.ok) {
+          setError("")
           const contentType = r.headers ? r.headers.get("content-type") : ""
           if (contentType && contentType.indexOf("application/json") !== -1) {
             return r
