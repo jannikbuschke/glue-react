@@ -46,11 +46,11 @@ export const ApplicationLayout = ({
   Header,
   SideBar,
   children,
-  footer
+  footer,
 }: Props) => (
   <Layout style={{ minHeight: "100vh" }}>
     {Header}
-    <Layout style={{flex:1}}>
+    <Layout style={{ flex: 1 }}>
       {SideBar && (
         <Sider
           width={200}
@@ -62,11 +62,7 @@ export const ApplicationLayout = ({
         </Sider>
       )}
       <Layout>
-        <Content>
-        <div style={{ flex:1 }}>
-          {children}
-        </div>
-        </Content>
+        <Content style={{ flex: 1 }}>{children}</Content>
         {footer && <Row>{footer}</Row>}
       </Layout>
     </Layout>
