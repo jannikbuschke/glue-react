@@ -1,5 +1,6 @@
 import { Layout, Menu, Row } from "antd"
 import * as React from "react"
+import styled from "styled-components"
 
 const { Header, Sider, Content } = Layout
 
@@ -68,3 +69,7 @@ export const ApplicationLayout = ({
     </Layout>
   </Layout>
 )
+
+export const Root = styled(Layout)`
+  height: 100vh;
+`

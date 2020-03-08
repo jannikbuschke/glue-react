@@ -39,7 +39,9 @@ export function OdataTable<T extends object = any>(
       <Table<T>
         {...props}
         pagination={
-          props.paginate && data && data.count
+          props.paginate === false
+            ? false
+            : props.paginate && data && data.count
             ? {
                 ...pagination,
                 total: data.count,
