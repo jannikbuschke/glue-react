@@ -1,7 +1,4 @@
 import * as React from "react"
-import { Formik } from "formik"
-import { Form, Input, FormItem, DatePicker } from "formik-antd"
-import { RemoteSelect } from "../Formik/RemoteSelect"
 import { OdataTable, useOdataTable } from "./odata-table"
 import { message, Table } from "antd"
 import useSWR from "swr"

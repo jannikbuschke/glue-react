@@ -1,22 +1,12 @@
 import * as React from "react"
-import { Formik } from "formik"
-import { Form, Input, SubmitButton } from "formik-antd"
-import * as colors from "@ant-design/colors"
-import { presetPalettes } from "@ant-design/colors"
-import { Button, message, Menu, PageHeader, Tabs } from "antd"
-import {
-  ApplicationLayout,
-  DefaultApplicationLayout,
-  DefaultHeader,
-} from "./default-layout"
+import { Menu, PageHeader, Tabs } from "antd"
+import { ApplicationLayout, DefaultHeader } from "./default-layout"
 import MenuItem from "antd/lib/menu/MenuItem"
-import { PageContentContainer } from "../Formik/Layout"
 import styled from "styled-components"
 
 export default {
   title: "DefaultLayout",
 }
-const Header = DefaultApplicationLayout.HeaderMenu
 
 const ContentContainer = styled.div`
   padding: 0 24px 24px 24px;
