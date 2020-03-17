@@ -39,7 +39,7 @@
     "@types/reach__router": "1.2.5",
     "immer": "2.1.5",
     "antd": "3.23.5",
-    "formik": "2.0.3",
+    "formik": "2.1.4",
     "lodash": "4.17.15",
     "styled-components": "4.4.0",
     "@types/jest": "24.0.18",
