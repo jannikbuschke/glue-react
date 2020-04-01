@@ -16,9 +16,9 @@ export function useOdataTable() {
     current: Math.floor(odata.page + 1),
     pageSize: odata.top,
     onChange: (page, size) => {
-      notification.info({
-        message: "page " + page + " top " + page * odata.top,
-      })
+      // notification.info({
+      //   message: "page " + page + " top " + page * odata.top,
+      // })
       odata.setSkip((page - 1) * odata.top)
     },
     onShowSizeChange: (page, size) => {
