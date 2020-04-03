@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Alert } from "antd"
+import { AlertProps } from "antd/lib/alert"
 
 export function ErrorBanner({ message }: { message: string | null }) {
   return message ? (
@@ -13,6 +14,10 @@ export function WarningBanner({ message }: { message: string | null }) {
   ) : null
 }
 
-export function InfoBanner({ message }: { message: string | null }) {
-  return message ? <Alert message={message} type="info" banner={true} /> : null
+type InfoProps = AlertProps
+
+export function InfoBanner({ message, ...rest }: InfoProps) {
+  return message ? (
+    <Alert message={message} type="info" banner={true} {...rest} />
+  ) : null
 }
