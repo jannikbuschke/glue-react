@@ -1,5 +1,6 @@
 import * as React from "react"
 import { set } from "lodash"
+import { notification } from "antd"
 
 function camelize(str: string) {
   return str
@@ -57,18 +58,32 @@ export interface ModelStateDictionary {
   item: any
 }
 
+interface ProblemDetail {
+  detail: string
+  status: number
+  title: string
+  type: string
+}
+
 export function useSubmit<T = any>(
   url: string,
 ): [
   (values: any) => Promise<T | undefined>,
   (values: any) => Promise<ValidationResult | undefined>,
-  string|null
+  string | null,
 ] {
-  const [error, setError] = React.useState<string|null>(null)
+  const [error, setError] = React.useState<string | null>(null)
   return [
     async (values: any): Promise<T | undefined> => {
       const response = await send(url, values, "execute")
       if (!response.ok) {
+        try {
+          const problem = await response.json()
+          if (problem.status === 400 && problem.detail) {
+            const problemDetail = problem as ProblemDetail
+            notification.error({ message: problemDetail })
+          }
+        } catch (e) {}
         // what to do if bad request?
         console.error(response)
         setError(response.statusText)
@@ -90,6 +105,6 @@ export function useSubmit<T = any>(
         return
       }
     },
-    error
+    error,
   ]
 }
