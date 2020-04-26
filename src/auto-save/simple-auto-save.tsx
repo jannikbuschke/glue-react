@@ -9,12 +9,15 @@ export function SimpleAutoSave({ delayMs = 500 }: { delayMs?: number }) {
   const firstUpdate = React.useRef(true)
 
   React.useLayoutEffect(() => {
+    if (!(values as any).id) {
+      return
+    }
     if (firstUpdate.current) {
       firstUpdate.current = false
       return
+    } else {
+      ctx.submitForm()
     }
-
-    ctx.submitForm()
   }, [values])
 
   return null
