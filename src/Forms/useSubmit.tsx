@@ -1,6 +1,6 @@
 import * as React from "react"
 import { set } from "lodash"
-import { notification } from "antd"
+import { notification, Typography } from "antd"
 
 function camelize(str: string) {
   return str
@@ -81,7 +81,18 @@ export function useSubmit<T = any>(
           const problem = await response.json()
           if (problem.status === 400 && problem.detail) {
             const problemDetail = problem as ProblemDetail
-            notification.error({ message: problemDetail })
+            notification.error({
+              message: (
+                <div>
+                  <div>
+                    <Typography.Text strong={true}>
+                      {problemDetail.title}
+                    </Typography.Text>
+                  </div>
+                  <Typography.Text>{problemDetail.detail}</Typography.Text>
+                </div>
+              ),
+            })
           }
         } catch (e) {}
         // what to do if bad request?
