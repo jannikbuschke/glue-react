@@ -62,6 +62,7 @@ export function useSubmit<T = any>(
 ): [
   (values: any) => Promise<T | undefined>,
   (values: any) => Promise<ValidationResult | undefined>,
+  string,
 ] {
   const [error, setError] = React.useState("")
   return [
@@ -89,5 +90,6 @@ export function useSubmit<T = any>(
         return
       }
     },
+    error,
   ]
 }
