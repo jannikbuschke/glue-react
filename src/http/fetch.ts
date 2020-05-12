@@ -8,10 +8,17 @@ export async function fetchJson<T>(key: string) {
   }
 }
 
-export async function postJson<Response>(url: string, payload: any) {
+export async function postJson<Response>(
+  url: string,
+  payload: any,
+  headers?: any,
+) {
   const response = await fetch(url, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      ...(headers ? headers : {}),
+    },
     body: JSON.stringify(payload),
   })
   if (response.ok) {
