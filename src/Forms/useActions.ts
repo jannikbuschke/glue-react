@@ -38,6 +38,7 @@ export function useActions(url: string, additionalInfo?: any) {
           "x-action-intent": intent,
           "content-type": "application/json",
         },
+        credentials: "same-origin",
       },
     )
   }
