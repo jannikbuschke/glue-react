@@ -6,7 +6,10 @@ interface BadRequestResponse {
 }
 
 function camelize(str: string) {
-  return str.split(".").map(_camelize).join(".")
+  return str
+    .split(".")
+    .map(_camelize)
+    .join(".")
 }
 
 function _camelize(str: string) {
