@@ -1,26 +1,27 @@
-import { Field, FormikProps } from "formik";
-import * as React from "react";
-import { ButtonProps } from "antd/lib/button";
-import { FetchContext } from '@jbuschke/react-fetch-context';
-import { Button, Spin, message } from 'antd';
+import { Field, FormikProps } from "formik"
+import * as React from "react"
+import { ButtonProps } from "antd/lib/button"
+import { FetchContext } from "@jbuschke/react-fetch-context"
+import { Button, Spin, message } from "antd"
 
 type Props = {
-  payload: any;
-  path: string;
-  onSuccess?: (value?: any) => void;
-  onError?: (e: any) => void;
-  scopes?: string[];
-};
+  payload: any
+  path: string
+  onSuccess?: (value?: any) => void
+  onError?: (e: any) => void
+  scopes?: string[]
+}
 
 export const ActionButton = ({
   path,
   payload,
   onSuccess,
   onError,
-  scopes, 
-  ...props }: ButtonProps & Props) => {
-  const [loading, setLoading] = React.useState(false);
-  const fetch = React.useContext(FetchContext);
+  scopes,
+  ...props
+}: ButtonProps & Props) => {
+  const [loading, setLoading] = React.useState(false)
+  const fetch = React.useContext(FetchContext)
 
   return (
     <Spin delay={750} spinning={loading}>
