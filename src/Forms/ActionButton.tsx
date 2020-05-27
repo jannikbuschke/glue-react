@@ -28,33 +28,32 @@ export const ActionButton = ({
         {({ form }: { field: any; form: FormikProps<any> }) => (
           <Button
             onClick={async () => {
-              setLoading(true);
+              setLoading(true)
 
               try {
-     
                 const response = await fetch(path, {
                   method: "POST",
                   body: JSON.stringify(payload),
-                  headers: { "content-type": "application/json" }
-                });
+                  headers: { "content-type": "application/json" },
+                  credentials: "same-origin",
+                })
 
                 if (onSuccess && response.ok) {
                   if (response.status === 201) {
-                    const value = await response.json();
+                    const value = await response.json()
                     onSuccess(value)
                   }
                 }
-            }catch(E){
+              } catch (E) {
                 message.error(E.toString())
-            }finally{
+              } finally {
                 setLoading(false)
-            }
-        }}
-        {...props}
+              }
+            }}
+            {...props}
           />
         )}
       </Field>
     </Spin>
-  );
-
-};
+  )
+}

@@ -31,6 +31,7 @@ export const validate = async (
     method: "POST",
     body: JSON.stringify(request),
     headers,
+    credentials: "same-origin",
   })
 
   switch (response.status) {

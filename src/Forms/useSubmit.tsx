@@ -33,6 +33,7 @@ function send(url: string, values: any, intent: "execute" | "validate") {
       "x-submit-intent": intent,
       "content-type": "application/json",
     },
+    credentials: "same-origin",
   })
 }
 

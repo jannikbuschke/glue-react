@@ -1,5 +1,5 @@
 import * as React from "react"
-import { FormikErrors,  } from "formik"
+import { FormikErrors } from "formik"
 import { FetchContext } from "@jbuschke/react-fetch-context"
 import { message } from "antd"
 
@@ -13,7 +13,7 @@ interface UseActionProps {
 interface UseActionsResponse {
   // validate: any;
   validate: (values: any) => Promise<FormikErrors<any>> | undefined
-  submit: (values: any, formikActions:any) => void
+  submit: (values: any, formikActions: any) => void
 }
 
 interface BadRequestResponse {
@@ -43,6 +43,7 @@ function postRequestInit(values: any, intent: "validate" | "execute") {
       "x-action-intent": intent,
       "content-type": "application/json",
     },
+    credentials: "same-origin" as "same-origin",
   }
 }
 

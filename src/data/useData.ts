@@ -18,7 +18,10 @@ export function useData<T>(
 
     fetch(
       uri,
-      { headers: { "content-type": "application/json" } },
+      {
+        headers: { "content-type": "application/json" },
+        credentials: "same-origin",
+      },
       additionalFetchInfo,
     )
       .then((r: any) => {

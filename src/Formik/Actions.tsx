@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { Button, message, Popconfirm, notification } from "antd"
 
-import {  FormikValues } from "formik"
+import { FormikValues } from "formik"
 import produce from "immer"
 
 export const createPatchSubmitHandler = (url: string) => async (
@@ -30,6 +30,7 @@ export const patchJson = async (url: string, payload: any) =>
     body: JSON.stringify(payload),
     headers: { "Content-Type": "application/json" },
     method: "PATCH",
+    credentials: "same-origin",
   })
 
 export const PatchAction = (props: {
@@ -51,6 +52,7 @@ class Delete extends React.Component<{ path: string; id: string }> {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ id: this.props.id }),
+            credentials: "same-origin",
           })
           if (response.ok) {
             this.setState({ loading: false })
@@ -81,7 +83,10 @@ export class DeleteAction extends React.Component<{ url: string }> {
         title="Are you sure you want to delete this item?"
         onConfirm={async () => {
           this.setState({ loading: true })
-          const response = await fetch(this.props.url, { method: "DELETE" })
+          const response = await fetch(this.props.url, {
+            method: "DELETE",
+            credentials: "same-origin",
+          })
           if (response.ok) {
             this.setState({ loading: false })
             message.success("Success")
@@ -151,6 +156,7 @@ export const postJson = async (
     body: JSON.stringify(payload),
     headers,
     method: "POST",
+    credentials: "same-origin",
   })
 }
 

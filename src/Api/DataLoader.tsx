@@ -51,7 +51,7 @@ export class DataLoader<T> extends React.Component<
     this.setState({ loadingState: "LOADING" })
     // tslint:disable-next-line:no-console
     console.log("load", this.props.url)
-    const response = await fetch(this.props.url)
+    const response = await fetch(this.props.url, { credentials: "same-origin" })
     if (response.ok) {
       const json = await response.json()
       this.setState({ data: json, loadingState: "SUCCESS", error: null })
